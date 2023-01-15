@@ -1,0 +1,42 @@
+*{
+  box-sizing: border-box;
+}
+
+.mat-toolbar {
+  //position: fixed;
+  height: 110%;
+  width: 250px;
+  align-items: baseline;
+}
+
+.mat-button {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#button {
+  border-bottom: 1px solid black;
+  height: 60px;
+  width: 225px;
+  margin-bottom: 10px;
+  position: relative;
+  margin: 4px 8px;
+  align-items: center;
+  display: flex;
+  line-height: 50px;
+}
+#button:hover{
+  text-decoration: underline;
+  color: rgb(46, 5, 5);
+  border-radius: 4px;
+  border: 12px;
+  background-color: rgba(226, 207, 207, 0.739);
+}
+
+.buttons {
+  margin-left: -22px;
+}
+
+div.imagem1 {
+  content: url(http://www.w3.org/2000/svg);
+}

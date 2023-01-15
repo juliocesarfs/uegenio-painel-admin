@@ -1,0 +1,72 @@
+ <div fxLayout="column" fxLayoutGap="1%" fxLayoutGap.xs="2%">
+   <!--
+  <div fxLayout="row">
+    <div fxFlex fxFlexAlign="center">
+      <span class="content__title">{{ "LABEL_PESQUISAR_PRODUTO" | i18n }}</span>
+    </div>
+    <div fxFlex fxLayoutAlign="end center">
+      <button
+        class="mat-button mat-raised-button mat-accent mat-button-base"
+        title="{{ 'LABEL_ADICIONAR_NOVO' | i18n }}"
+        routerLink="/administracao/produto/incluir"
+      >
+        {{ "LABEL_ADICIONAR_NOVO" | i18n }}
+      </button>
+      *ngIf="securityService.hasRoles('ROLE_PRODUTO_INCLUIR')"
+    </div>
+
+    <canvas #grafico>
+
+    </canvas>-->
+
+    <mat-card>
+      <mat-card-content fxLayout="column">
+
+        <h2>
+          Ranking de Produtos
+        </h2>
+
+      </mat-card-content>
+    </mat-card>
+
+
+    <mat-card>
+      <mat-card-content fxLayout="column">
+        <div fxLayout="column" fxLayoutAlign.gt-xs="center center" >
+          <dx-funnel
+          id="funnel"
+
+          palette="Soft Pastel"
+          [dataSource]="produtoRanking"
+          argumentField="nome"
+          valueField="quantidadeVendida"
+
+          (onPointClick)="pointClickHandler($event)"
+          (onLegendClick)="legendClickHandler($event)">
+
+
+          <dxo-title text="Produto">
+            <dxo-margin [bottom]="30"></dxo-margin>
+          </dxo-title>
+          <dxo-tooltip [enabled]="true"></dxo-tooltip>
+          <dxo-item>
+            <dxo-border [visible]="true"></dxo-border>
+          </dxo-item>
+          <dxo-legend [visible]="true"></dxo-legend>
+          <dxo-label visible="true" horizontalAlignment="left" backgroundColor="none">
+            <dxo-font [size]="16"></dxo-font>
+          </dxo-label>
+          <dxo-export [enabled]="true"></dxo-export>
+
+        </dx-funnel>
+
+
+
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+
+
+

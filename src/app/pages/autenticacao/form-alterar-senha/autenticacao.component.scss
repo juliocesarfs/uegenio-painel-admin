@@ -1,0 +1,27 @@
+.icon_size {
+  font-size: 4em;
+  //color: #393068;
+  margin-bottom: 40px;
+  margin-left: -1em;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 20vh;
+}
+
+.mat-card {
+  align-items: center;
+  min-width: 500px;
+}
+
+.mat-form-field:nth-child(2) {
+  padding-bottom: 20px;
+}
+
+.mat-card-title {
+  padding: 20px;
+}

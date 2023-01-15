@@ -1,0 +1,68 @@
+@import '../../../../ueg-theme';
+
+.style-header{
+  font-weight: bold;
+  background-color: $theme-background-solid;
+}
+
+.f{
+  border-right: none;
+}
+.text-right{
+  text-align: right;
+}
+.style-column{
+  border-right: 1px #e7e5e5 solid;
+}
+
+.filter-position{
+  margin:3px;
+}
+
+.valorEstoque{
+
+  font-size: 12px;
+  font-style: 'Arial';
+  border: 5px solid #ff9aff; //#fcd8c0
+}
+
+.container{
+	display: grid;
+  grid-template-columns:
+repeat(3, auto);
+box-sizing: border-box;
+width: 100%;
+border: 1px solid #dbeaf4;
+padding: 5px;
+background-color: #eaeaea;  // step 1
+grid-row-gap: 1px;  // step 2
+grid-template-rows:
+60px 60px;
+justify-content:stretch;
+grid-row-gap: 20px;
+
+
+
+}
+
+
+
+
+.table-detail{
+  margin-top: 10px;
+  border: 1px #e7e5e5 solid;
+}
+
+.mat-row-lt-sm{
+  min-height: 0;
+}
+
+.mat-body-strong{
+  width: 10px;
+  font-size: 5em;
+}
+
+.text{
+  margin-right: 200px;
+}
+

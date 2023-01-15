@@ -1,0 +1,213 @@
+<div fxLayout="column" fxLayoutGap="1%" fxLayoutGap.xs="2%">
+
+  <div fxLayout="row">
+    <div fxFlex fxFlexAlign="center">
+      <span class="content__title">{{'LABEL_PESQUISAR_PRODUTO' | i18n}}</span>
+    </div>
+    <div fxFlex fxLayoutAlign="end center">
+      <button class="mat-button mat-raised-button mat-accent mat-button-base"
+              title="{{'LABEL_ADICIONAR_BOTAR' | i18n}}" routerLink="/administracao/mensagem/incluir"
+            >
+        {{'LABEL_ADICIONAR_BOTAR' | i18n}}
+      </button>
+      <!-- *ngIf="securityService.hasRoles('ROLE_VENDA_INCLUIR')"-->
+    </div>
+
+
+  </div>
+
+<mat-card>
+    <mat-card-title>{{'LABEL_FILTRO_PARA_PESQUISA' | i18n}}</mat-card-title>
+    <div fxLayout="column">
+      <mat-card-content fxLayout="column" fxLayoutAlign.gt-xs="center" fxLayout.lt-sm="column">
+
+
+        <ng-container matColumnDef="dataAlteracao">
+          <mat-header-cell
+            fxFlex="15"
+            class="style-header"
+            fxHide.xs="true"
+            fxLayoutAlign="none center"
+            *matHeaderCellDef
+          >
+            {{ "LABEL_DATA_VENDA" | i18n }}
+          </mat-header-cell>
+          <mat-cell
+            fxFlex="15"
+            fxFlex.lt-sm="100"
+            ngClass.gt-sm="style-column"
+            fxLayoutAlign="start center"
+            *matCellDef="let element"
+          >
+            <div fxFlex fxLayout="row">
+              <div
+                fxFlex="130px"
+                fxHide.gt-xs="true"
+                fxLayoutAlign="end center"
+              >
+                <span class="mat-body-strong text-right"
+                  >{{ "LABEL_DATA_VENDA" | i18n }} :</span
+                >
+              </div>
+              <div
+                fxFlex
+                fxLayoutAlign.gt-xs="center center"
+                fxLayoutAlign.lt-sm="start center"
+                fxLayoutGap.lt-sm="1"
+              >
+                {{ element.dataAlteracao | date: "dd/MM/yyyy" }}
+              </div>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+      <div fxLayout="column" fxFlex="100" fxLayoutAlign="center center">
+        <div fxFlex.gt-sm="50" fxFlex.sm="50" fxFlex.lt-sm="100" fxFlexAlign="space-between" fxLayoutAlign="center center">
+          <button fxFlex fxFlexOffset="1" type="submit" title="{{'LABEL_LIMPAR' | i18n}}" (click)="limpar()"
+                  class="mat-button mat-raised-button mat-warn mat-button-base">
+            <span>{{'LABEL_LIMPAR' | i18n}}</span>
+          </button>
+          <button fxFlex fxFlexOffset="1" type="submit" title="{{'LABEL_PESQUISAR' | i18n}}"
+                  (click)="pesquisar(filtroDTO)"
+                  class="mat-button mat-raised-button mat-primary mat-button-base">
+            <span>{{'LABEL_PESQUISAR' | i18n}}</span>
+          </button>
+        </div>
+      </div>
+      </mat-card-content>
+
+
+
+
+
+      <mat-card>
+        <mat-card-content *ngIf="dataSource.data.length != 0">
+          <div
+            fxLayout="column"
+            fxFlex="100">
+
+            <div class="table-detail">
+              <mat-table #table [dataSource]="dataSource">
+
+                <ng-container matColumnDef="descricao">
+                  <mat-header-cell class="style-header" fxHide.xs="true" fxLayoutAlign="start center"
+                                   *matHeaderCellDef> {{ 'LABEL_DESCRICAO' | i18n}} </mat-header-cell>
+                  <mat-cell fxFlex.lt-sm="100" ngClass.gt-sm="style-column" fxLayoutAlign="start center"
+                            *matCellDef="let element">
+                    <div fxFlex fxLayout="row">
+                      <div fxFlex="130px" fxHide.gt-xs="true" fxLayoutAlign="end center" fxLayoutGap.lt-sm="1">
+                        <span class="mat-body-strong" >{{ 'LABEL_DESCRICAO' | i18n}} :</span>
+                      </div>
+                      <div >
+                         {{element.descricaoMensagem}}
+                      </div>
+                    </div>
+                  </mat-cell>
+                </ng-container>
+
+
+
+                <ng-container matColumnDef="dataAlteracao">
+                  <mat-header-cell fxFlex="15" class="style-header" fxHide.xs="true" fxLayoutAlign="none center"
+                                   *matHeaderCellDef> {{ 'LABEL_DATA_ALTERACAO' | i18n}} </mat-header-cell>
+                  <mat-cell fxFlex="15" fxFlex.lt-sm="100" ngClass.gt-sm="style-column" fxLayoutAlign="start center"
+                            *matCellDef="let element">
+                    <div fxFlex fxLayout="row">
+                      <div fxFlex="130px" fxHide.gt-xs="true" fxLayoutAlign="end center">
+                        <span class="mat-body-strong text-right">{{ 'LABEL_DATA_ALTERACAO' | i18n}} :</span>
+                      </div>
+                      <div fxFlex fxLayoutAlign.gt-xs="center center" fxLayoutAlign.lt-sm="start center"
+                           fxLayoutGap.lt-sm="1">
+                        {{element.dataAlteracao | date: 'dd/MM/yyyy'}}
+                      </div>
+                    </div>
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="quantidade">
+                  <mat-header-cell fxFlex="18" class="style-header" fxHide.xs="true" fxLayoutAlign="none center"
+                                   *matHeaderCellDef> {{ 'LABEL_QUANTIDADE_ALTERACAO' | i18n}} </mat-header-cell>
+                  <mat-cell fxFlex="15" fxFlex.lt-sm="100" ngClass.gt-sm="style-column" fxLayoutAlign="start center"
+                            *matCellDef="let element">
+                    <div fxFlex fxLayout="row">
+                      <div fxFlex="130px" fxHide.gt-xs="true" fxLayoutAlign="end center">
+                        <span class="mat-body-strong text-right">{{ 'LABEL_QUANTIDADE_ALTERACAO' | i18n}} :</span>
+                      </div>
+                      <div fxFlex fxLayoutAlign.gt-xs="center center" fxLayoutAlign.lt-sm="start center"
+                           fxLayoutGap.lt-sm="1">
+                        {{element.quantidade}}
+                      </div>
+                    </div>
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="nomeProduto">
+                  <mat-header-cell fxFlex="15" class="style-header" fxHide.xs="true" fxLayoutAlign="none center"
+                                   *matHeaderCellDef> {{ 'LABEL_PRODUTO_ALTERACAO' | i18n}} </mat-header-cell>
+                  <mat-cell fxFlex="15" fxFlex.lt-sm="100" ngClass.gt-sm="style-column" fxLayoutAlign="start center"
+                            *matCellDef="let element">
+                    <div fxFlex fxLayout="row">
+                      <div fxFlex="130px" fxHide.gt-xs="true" fxLayoutAlign="end center">
+                        <span class="mat-body-strong text-right">{{ 'LABEL_PRODUTO_ALTERACAO' | i18n}} :</span>
+                      </div>
+                      <div fxFlex fxLayoutAlign.gt-xs="center center" fxLayoutAlign.lt-sm="start center"
+                           fxLayoutGap.lt-sm="1">
+                        {{element.nomeProduto}}
+                      </div>
+                    </div>
+                  </mat-cell>
+                </ng-container>
+
+
+
+
+                <ng-container matColumnDef="acoes">
+                  <mat-header-cell fxFlex.gt-sm="100px" class="style-header f" fxLayoutAlign="start center"
+                                   *matHeaderCellDef> {{ 'LABEL_ACOES' | i18n}} </mat-header-cell>
+                  <mat-cell fxFlex.lt-sm="100" fxLayoutAlign="center center" fxFlex.gt-sm="150px"
+                            *matCellDef="let element">
+                    <div fxFlex fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center">
+                      <div fxHide.gt-xs="true" fxLayoutAlign="center center">
+                        <span class="mat-body-strong">{{ 'LABEL_ACOES' | i18n}} :</span>
+                      </div>
+                      <div fxLayout="row" fxLayoutAlign="center center">
+                        <a mat-mini-fab title="{{'LABEL_VISUALIZAR_VENDA' | i18n}}" class="btn-primary"
+                           *ngIf="securityService.hasRoles('ROLE_VENDA_VISUALIZAR')"
+                           [routerLink]="['/administracao/mensagem', element.id, 'visualizar']">
+                          <mat-icon>search</mat-icon>
+                        </a>
+
+                      <!--  <a mat-mini-fab title="{{'LABEL_ALTERAR_VENDA' | i18n}}" class="btn-primary"
+                           *ngIf="securityService.hasRoles('ROLE_VENDA_ALTERAR')"
+                           [routerLink]="['/administracao/mensagem', element.id, 'alterar']">
+                          <mat-icon>edit</mat-icon>
+                        </a>-->
+
+                        <a mat-mini-fab title="{{'LABEL_VENDA_REMOVER' | i18n}}" class="btn-primary"
+                           *ngIf="securityService.hasRoles('ROLE_VENDA_REMOVER') && element.statusVendido==false"
+                           (click)="remover(element)">
+                          <mat-icon>close</mat-icon>
+                        </a>
+                      </div>
+                    </div>
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns" fxHide.lt-sm="true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;" fxLayout.lt-sm="column" fxLayout="row"
+                         fxLayoutAlign.lt-sm="space-around stretch"
+                         ngClass.lt-sm="mat-row-lt-sm"
+                ></mat-row>
+
+              </mat-table>
+            </div>
+          </div>
+        </mat-card-content>
+
+        <mat-card-footer>
+          <mat-paginator [pageSize]="PAGINATOR_PAGE_SIZE" hidePageSize showFirstLastButtons></mat-paginator>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+
+

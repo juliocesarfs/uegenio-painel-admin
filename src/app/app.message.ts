@@ -1,0 +1,318 @@
+import { InternacionalizacaoResource } from "./shared/message/internacionalizacao.resource";
+
+/**
+ * Implementação responsável por prover as 'descrições' e 'mensagens' utilizadas na aplicação em um único local.
+ *
+ * @author Guiliano Rangel (UEG)
+ */
+export class AppMessage implements InternacionalizacaoResource {
+  private resource: object;
+
+  /**
+   * Construtor da classe.
+   */
+  constructor() {
+    this.resource = {
+      // LABEL
+      LABEL_FILTRAR: "Filtrar",
+      LABEL_DATAFINAL: "Data do fim",
+      LABEL_DATAINICIAL: "Data de inicio",
+      LABEL_VALOR: "O valor total do estoque é:",
+      LABEL_OK: "OK",
+      LABEL_SAIR: "Sair",
+      LABEL_SIM: "Sim",
+      LABEL_NAO: "Não",
+      LABEL_PESQUISAR: "Pesquisar",
+      LABEL_LIMPAR: "Limpar",
+      LABEL_PERDA: 'Perda',
+      LABEL_FURTO: 'Furto',
+      LABEL_QUEBRA: 'Quebra',
+      LABEL_VALIDADE: 'Validade',
+      LABEL_INCLUSAO: 'Inclusao',
+      LABEL_SALVAR: "Salvar",
+      LABEL_CANCELAR: "Cancelar",
+      LABEL_VOLTAR: "Voltar",
+      LABEL_LOGIN: "Login",
+      LABEL_INFORME_LOGIN: "Digite seu usuário",
+      LABEL_SENHA: "Senha",
+      LABEL_INFORME_SENHA: "Digite sua senha",
+      LABEL_ENTRAR: "Entrar",
+      LABEL_USUARIO: "Usuário",
+      LABEL_CLASSROOM: "Aula",
+      LABEL_ADICIONAR_NOVO: "Adicionar Novo",
+      LABEL_FILTRO_PARA_PESQUISA: "Filtros para Pesquisa",
+      LABEL_STATUS: "Status",
+      LABEL_TODOS: "Todos",
+      LABEL_INATIVAR: "Inativar",
+      LABEL_ATIVAR: "Ativar",
+      LABEL_ATIVO: "Ativo",
+      LABEL_INATIVO: "Inativo",
+      LABEL_VISUALIZAR: "Visualizar",
+      LABEL_ALTERAR: "Alterar",
+      LABEL_ACOES: "Ações",
+      LABEL_NOME: "Nome",
+      LABEL_INFORME_NOME: "Informe o nome",
+      LABEL_DESCRICAO: "Descrição",
+      LABEL_ENTIDADE: "Entidade",
+      LOGIN_EMAIL: "E-mail",
+      LABEL_EXPORTAR: "Exportar",
+      LABEL_SELECIONE: "Selecione",
+      LABEL_PRECO: "Preço",
+      LABEL_QUANTIDADE: "Quantidade",
+      LABEL_PRECO_PRODUTO: "Preço do Produto",
+      LABEL_VLIQUIDO: "% Valor Líquido",
+      LABEL_QUANTIDADE_VENDIDA: "Qnt. Vendida",
+      LABEL_DATA_CADASTRO: "Data do Cadastro",
+      LABEL_TIPO_PRODUTO: "Tipo do Produto",
+      LABEL_ADICIONAR_BOTAR: "Adicionar produto",
+
+      LABEL_PESQUISAR_VENDA: "Pesquisar Venda",
+      LABEL_VALORTOTAL: "Valor da venda",
+
+      LABEL_DATAVENDA: "Data da venda",
+      LABEL_NOME_CLIENTE: "Nome do Cliente",
+      LABEL_INFORME_VALORTOTAL: "Informe valor da venda",
+      LABEL_INFORME_QNTVENDIDA: "Informe quantidade vendida",
+
+      LABEL_ADICIONAR_RETIRAR: "Retirar produto",
+
+      //relatorio
+      LABEL_RELATORIO_VENDA_DIA: "Vendas diarias",
+      LABEL_RELATORIO_VENDA_MES: "Vendas por mês",
+      LABEL_RELATORIO_CLIENTES: "Clientes",
+      LABEL_RELATORIO_CLIENTES_INDIVIDUAL: "Clientes individual",
+      LABEL_RELATORIO_TIPO_PRODUTO: "Tipo produto",
+
+      // mensagem tabela alteracao
+      LABEL_DATA_ALTERACAO: "Data da alteração",
+      LABEL_PRODUTO_ALTERACAO: "Produto",
+      LABEL_QUANTIDADE_ALTERACAO: "Quantidade alterada",
+      // Mensagem sitema
+      MSG_DESEJA_SAIR_SISTEMA: "Deseja sair do sistema?",
+
+      TITLE_TODOS_OS_MEUS_SISTEMA: "Todos os meus sistemas",
+      TITLE_ADMINISTRADOR: "Administrador",
+      TITLE_SISTEMA_NOME: "UEGênio - Painel Administrativo",
+
+      TITLE_SISTEMA_ORGAO_NOME: "Secretaria de Segurança Pública",
+
+      // Textos UC003-Manter Grupo
+      LABEL_LISTAR_GRUPO: "Lista de grupos",
+      LABEL_CARGO: "Cargo",
+      LABEL_GRUPO_HINT: "Digite o nome do grupo",
+      LABEL_GRUPO_DESCRICAO_HINT: "Digite a descriação para o grupo",
+      LABEL_DADOS_GRUPO: "Dados do grupo",
+      LABEL_SISTEMA_PERMISSOES: "Sistema e Permissões",
+      LABEL_PESQUISAR_GRUPO: "Pesquisar Grupo",
+      LABEL_SISTEMA: "Sistema",
+      LABEL_MODULO: "Módulo",
+      LABEL_MODULO_BUSCA_HINT: "Buscar módulo",
+      LABEL_MODULO_FILTRO_HINT: "Filtrar módulo",
+      LABEL_ALTERAR_GRUPO: "Alterar Grupo",
+      LABEL_INCLUIR_GRUPO: "Incluir Grupo",
+      LABEL_VISUALIZAR_GRUPO: "Visualizar Grupo",
+      LABEL_ID: "Código do Grupo",
+      LABEL_DESC_GRUPO: "Descrição do Grupo",
+
+      // Texto manter TIPO AMIGO
+      LABEL_PESQUISAR_TIPOAMIGO: "Pesquisar tipo de amigo",
+      LABEL_ALTERAR_TIPOAMIGO: "Alterar tipo de amigo",
+      LABEL_INCLUIR_TIPOAMIGO: "Incluir tipo de amigo",
+      LABEL_VISUALIZAR_TIPOAMIGO: "Visualizar tipo de amigo",
+      LABEL_TIPOAMIGO_HINT: "Digite o nome do tipo de amigo",
+      LABEL_DADOS_TIPOAMIGO: "Dados do tipo amigo",
+      LABEL_REMOVER_TIPOAMIGO: "Remover tipo de amigo",
+
+      // Texto manter  AMIGO
+      LABEL_PESQUISAR_AMIGO: "Pesquisar amigo",
+      LABEL_ALTERAR_AMIGO: "Alterar amigo",
+      LABEL_INCLUIR_AMIGO: "Incluir amigo",
+      LABEL_VISUALIZAR_AMIGO: "Visualizar amigo",
+      LABEL_AMIGO_HINT: "Digite o nome do amigo",
+      LABEL_DADOS_AMIGO: "Dados do amigo",
+      LABEL_REMOVER_AMIGO: "Remover amigo",
+      LABEL_STATUS_AMIGO: "É Amigo",
+      LABEL_DATA_AMIZADE: "Data Amizade",
+      LABEL_TIPO_AMIGO: "Tipo Amigo",
+
+      // Textos UC004_Manter_Usuario
+      LABEL_PESQUISAR_USUARIO: "Pesquisar Usuário",
+      LABEL_ALTERAR_USUARIO: "Alterar Usuário",
+      LABEL_INCLUIR_USUARIO: "Incluir Usuário",
+      LABEL_VISUALIZAR_USUARIO: "Visualizar Usuário",
+
+      LABEL_PESQUISAR_CLASSROOM: "Pesquisar Aula",
+      LABEL_ALTERAR_CLASSROOM: "Alterar Aula",
+      LABEL_INCLUIR_CLASSROOM: "Incluir Aula",
+      LABEL_VISUALIZAR_CLASSROOM: "Visualizar Aula",
+
+      LABEL_PESQUISAR_PRODUTO: "Pesquisar Produto",
+      LABEL_ALTERAR_PRODUTO: "Alterar Produto",
+      LABEL_INCLUIR_PRODUTO: "Incluir Produto",
+      LABEL_VISUALIZAR_PRODUTO: "Visualizar Produto",
+
+      LABEL_PESQUISAR_SUBJECT: "Pesquisar Disciplina",
+      LABEL_ALTERAR_SUBJECT: "Alterar Disciplina",
+      LABEL_INCLUIR_SUBJECT: "Incluir Disciplina",
+      LABEL_VISUALIZAR_SUBJECT: "Visualizar Disciplina",
+
+      LABEL_PESQUISAR_SEMESTER: "Pesquisar Semestre",
+      LABEL_ALTERAR_SEMESTER: "Alterar Semestre",
+      LABEL_INCLUIR_SEMESTER: "Incluir Semestre",
+      LABEL_VISUALIZAR_SEMESTER: "Visualizar Semestre",
+
+      LABEL_PESQUISAR_HOLIDAY: "Pesquisar Feriado",
+      LABEL_ALTERAR_HOLIDAY: "Alterar Feriado",
+      LABEL_INCLUIR_HOLIDAY: "Incluir Feriado",
+      LABEL_VISUALIZAR_HOLIDAY: "Visualizar Feriado",
+
+      LABEL_CLASSROOM_HINT: "Digite o nome do usuário",
+      LABEL_LOGIN_HINT: "Digite o login do usuário",
+      LABEL_TIPO_CADASTRO: "Tipo de Cadastro",
+      LABEL_STATUS_PORTAL: "Status no Portal",
+      LABEL_DATA_ULTIMO_ACESSO: "Data do Último Acesso",
+      LABEL_EMAIL: "E-mail",
+      LABEL_INFORME_EMAIL: "Informe o E-mail",
+      LABEL_ANO: 'Ano',
+      LABEL_INFORME_ANO: 'Informe o Ano',
+      LABEL_CPF: "CPF",
+      LABEL_INFORME_CPF: "Informe o CPF",
+      LABEL_STATUS_AD: "Status no AD",
+      LABEL_ACESSO_BLOQUEADO: "Acesso Bloqueado",
+      LABEL_SERVIDOR_INTERNO: "Servidor Interno",
+      LABEL_TELEFONES: "Telefones",
+      LABEL_CARGOS_ACESSO: "Cargos do Sistema",
+      LABEL_NOME_GRUPO_VINCULADO: "Cargo Vinculado",
+      LABEL_NOME_PRODUTO_VINCULADO: "Produto Vinculado",
+      LABEL_VALORPRODUTO: "Valor do produto",
+      LABEL_REMOVER: "Remover",
+      LABEL_REMOVER_GRUPO: "Remover Grupo",
+      LABEL_REMOVER_TELEFONE: "Remover Telefone",
+      LABEL_ADICIONAR: "Adicionar",
+      LABEL_ADICIONAR_TELEFONE: "Adicionar Telefone",
+      LABEL_ADICIONAR_GRUPO: "Adicionar Grupo",
+      LABEL_TIPO_TELEFONE: "Tipo de Telefone",
+      LABEL_DDD: "DDD",
+      LABEL_INFORME_DDD: "Informe o DDD",
+      LABEL_TELEFONE: "Telefone",
+      LABEL_INFORME_TELEFONE: "Informe o Número do Telefone",
+      LABEL_VINCULAR_AD: "Vincular AD",
+      LABEL_SELECIONAR_USUARIO_AD: "Selecionar Usuário do AD",
+      LABEL_PRIMEIRO_NOME: "Primeiro Nome",
+      LABEL_INFORME_PRIMEIRO_NOME: "Informe o Primeiro Nome",
+      LABEL_ULTIMO_NOME: "Último Nome",
+      LABEL_INFORME_ULTIMO_NOME: "Informe o Último Nome",
+      LABEL_VINCULAR: "Vincular",
+
+      // Textos Auditoria
+      LABEL_LISTAR_AUDITORIA: "Lista de Auditorias",
+      LABEL_PESQUISAR_AUDITORIA: "Pesquisar Log de Auditoria",
+      LABEL_DADOS_AUDITORIA: "Dados da Auditoria",
+      LABEL_VISUALIZAR_AUDITORIA: "Visualizar Log",
+      LABEL_TIPO_USUARIO: "Tipo de Usuário",
+      LABEL_TIPO_OPERACAO: "Tipo de Operação",
+      LABEL_DATA_OPERACAO: "Data da Operação",
+      LABEL_DATA_INICIAL: "Data Inicial",
+      LABEL_DATA_FINAL: "Data Final",
+      LABEL_DETALHES_LOG: "Visualizar Detalhes de Log de Auditoria",
+      LABEL_DETALHES: "Detalhes",
+      LABEL_DETALHES_DO_LOG: "Detalhes do log",
+      LABEL_DADOS_USUARIO: "Dados do Usuário",
+      LABEL_DADOS_CLASSROOM: "Dados da Aula",
+      LABEL_IP_USUARIO: "IP do Usuário",
+      LABEL_VISUALIZAR_IMPRESSAO: "Visualizar Impressão",
+      LABEL_STATUS_ESPERA: 'Pendente',
+      LABEL_STATUS_VENDIDO: 'Concluida',
+      LABEL_INFORMACAO_VENDIDO_CORRETO: 'A venda foi concluida, para alterar volta a página',
+      LABEL_INFORMACAO_VENDIDO_INCORRETO: 'A venda não foi concluido ainda, para alterar volta a página',
+      LABEL_INFORMACAO_ESPERA_CORRETO: 'A venda está pendente, para concluir volta a página',
+      LABEL_INFORMACAO_ESPERA_INCORRETO: 'A venda não está pendente, para mudar para pendente volte a página, mas se quiser cancelar essa venda, abra a página Cancelar Venda',
+
+
+      MAP_OPTION_INCLUSAO: "Inclusão",
+      MAP_OPTION_ALTERACAO: "Alteração",
+      MAP_OPTION_EXCLUSAO: "Exclusão",
+      MAP_OPTION_CONSULTA: "Consultar",
+
+      // PAGINATOR
+      PAGINATOR_ITENS_POR_PAGINA: "Itens por página",
+      PAGINATOR_PROXIMA_PAGINA: "Próxima página",
+      PAGINATOR_PAGINA_ANTERIOR: "Página anterior",
+      PAGINATOR_ULTIMA_PAGINA: "Última página",
+      PAGINATOR_PRIMEIRA_PAGINA: "Primeira página",
+
+      // MSG
+      ME001: "Erro Inesperado.",
+      ME002: "Token inválido.",
+      ME003: "Nenhum registro enconrado.",
+      MSG001: "Campo obrigat\u00F3rio n\u00E3o preenchido.",
+      MSG002: "Deseja sair do sistema?",
+      MSG003: "Usu\u00E1rio n\u00E3o cadastrado.",
+      MSG004: "Usu\u00E1rio e senha n\u00E3o conferem.",
+      MSG005: "Usu\u00E1rio est\u00E1 inativo no sistema AD.",
+      MSG006: "Deseja remover este item?",
+      MSG007: "Opera\u00E7\u00E3o realizada com sucesso.",
+      MSG008: "Usu\u00E1rio est\u00E1 inativo no portal.",
+      MSG009:
+        "Usu\u00E1rio n\u00E3o tem permiss\u00E3o de acesso ao sistema desejado.",
+      MSG010: "Confirmar operação?",
+      MSG011: "O Grupo informado já foi adicionado ao Usuário.",
+      MSG063: 'O Produto informado já foi adicionado ao Carrinho.',
+      MSG012: "Nenhum usuário foi selecionado.",
+      MSG013: "O CPF informado já está em uso.",
+      MSG014: "O Telefone informado já foi adicionado ao Usuário.",
+      MSG015: "Nenhum resultado informado para os filtros informados.",
+      MSG016:
+        "Al\u00E9m do filtro Tipo de Pessoa \u00E9 obrigat\u00F3rio informar mais algum filtro.",
+      MSG017:
+        "Deve ser informado, no m\u00EDnimo, 4 caracteres para pesquisar pelo Grupo.",
+      MSG018: "O CPF informado \u00E9 inv\u00E1lido.",
+      MSG019:
+        "Deve ser informado, no m\u00EDnimo, 4 caracteres para pesquisar pelo Nome.",
+      MSG026: "O login informado j\u00E1 existe.",
+      MSG029:
+        "O documento informado j\u00E1 est\u00E1 no cadastro dessa pessoa.",
+      MSG033: "Deseja inativar este item?",
+      MSG034: "Deseja ativar este item?",
+      MSG035: "J\u00E1 existe um grupo com o nome informado.",
+      MSG036: "Nenhum usu\u00E1rio foi selecionado.",
+      MSG038: "O login informado n\u00E3o foi encontrado no sistema AD.",
+      MSG039: "\u00C9 obrigat\u00F3rio informar pelo menos um grupo.",
+      MSG041: "A data final deve ser maior ou igual a data inicial.",
+      MSG042: "Usu\u00E1rio Bloqueado",
+      MSG044:
+        "Usu\u00E1rio n\u00E3o tem permiss\u00E3o de acesso a funcionalidade acessada.",
+      MSG045: "Confirmar Exclus\u00E1o?",
+      MSG046: "Tornar cadastro Amigo?",
+      MSG048: "Não possui produto suficiente",
+      MSG047: 'Deixar de estar concluida?',
+      MSG060: 'Deixar de estar pendente?',
+      MSG061: 'Transformar venda em pendente?',
+      MSG062: 'Transformar venda em concluida?',
+
+      // Validation
+      required: "Campo obrigat\u00F3rio n\u00E3o preenchido.",
+      "Mask error": "Valor inválido",
+    };
+  }
+
+  /**
+   * Retorna a 'descrição' conforme a 'chave' informada.
+   *
+   * @param key -
+   * @returns -
+   */
+  getDescription(key: string): string {
+    return this.resource[key];
+  }
+
+  /**
+   * Retorna a 'mensagem' conforme a 'chave' informada.
+   *
+   * @param key -
+   * @returns -
+   */
+  getMessage(key: string): string {
+    return this.getDescription(key);
+  }
+}

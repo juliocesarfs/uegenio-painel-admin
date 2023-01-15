@@ -1,0 +1,42 @@
+<div class="main">
+  <mat-card>
+    <mat-card-title [style.text-align]="'center'">
+      <mat-icon class="icon_size" color="primary">person_pin</mat-icon>
+    </mat-card-title>
+    <mat-card-content>
+      <form
+        #formLogin="ngForm"
+        (ngSubmit)="onSubmit(usuarioTO, formLogin)"
+        novalidate
+      >
+        <div class="form" fxLayout="column">
+          <mat-form-field>
+            <mat-label>{{ "LABEL_CPF" | i18n }}</mat-label>
+            <input
+              matInput
+              id="inputEmail"
+              type="text"
+              title="{{ 'LABEL_CPF' | i18n }}"
+              name="cpf"
+              required
+              [(ngModel)]="usuarioTO.cpf"
+              autocomplete="off"
+              placeholder="{{ 'LABEL_INFORME_EMAIL' | i18n }}"
+              maxlength="20"
+            />
+            <mat-error validationMessage [submitted]="submitted"></mat-error>
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            title="{{ 'LABEL_ENTRAR' | i18n }}"
+          >
+            <span>{{ "LABEL_ENTRAR" | i18n }}</span>
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,32 @@
+@import "../../../../ueg-theme";
+
+.relatorio{
+  text-decoration: none;
+  list-style: none;
+  display: grid;
+}
+ul, li{
+  text-decoration: none;
+  list-style: none;
+}
+
+li{
+  margin: 12px;
+  display: inline;
+  font-size: 19px;
+}
+
+.grid_container {
+  padding: 10px;
+}
+
+.image{
+  position:absolute;
+		left:40%;
+		top:25%;
+		margin-left:-90px;
+		//margin-top:0px;
+}
+
+
+

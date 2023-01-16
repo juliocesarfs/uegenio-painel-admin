@@ -1,164 +1,181 @@
 <div fxLayout="column" fxLayoutGap="1.5%" fxLayoutGap.xs="2%">
+
   <div fxLayout="row">
     <div class="content__title" fxFlex fxFlexAlign="center">
-      <span *ngIf="acaoSistema.isAcaoAlterar()">{{
-        "LABEL_ALTERAR_CLASSROOM" | i18n
-        }}</span>
-      <span *ngIf="acaoSistema.isAcaoIncluir()">{{
-        "LABEL_INCLUIR_CLASSROOM" | i18n
-        }}</span>
-      <span *ngIf="acaoSistema.isAcaoVisualizar()">{{
-        "LABEL_VISUALIZAR_CLASSROOM" | i18n
-        }}</span>
+      <span *ngIf="acaoSistema.isAcaoAlterar()">{{'LABEL_ALTERAR_VENDA' | i18n}}</span>
+      <span *ngIf="acaoSistema.isAcaoIncluir()">{{'LABEL_INCLUIR_VENDA' | i18n}}</span>
+      <span *ngIf="acaoSistema.isAcaoVisualizar()">{{'LABEL_VISUALIZAR_VENDA' | i18n}}</span>
     </div>
   </div>
 
   <mat-card fxLayout="column" fxLayoutGap="1%" fxLayoutGap.xs="2%">
-    <form #formClassroom="ngForm">
-      <mat-card fxLayout="column" fxLayoutGap="1%" fxLayoutGap.xs="2%">
+
+    <form #formVenda="ngForm">
+      <mat-card fxLayout="column" fxLayoutGap="2%" fxLayoutGap.xs="1%">
         <mat-card-title>
-          <span>{{ "LABEL_DADOS_CLASSROOM" | i18n }}</span>
+          <span>{{'LABEL_DADOS_VENDA' | i18n}}</span>
         </mat-card-title>
         <mat-card-content fxLayout="column" fxLayoutGap="0.7%" fxLayoutGap.xs="3%">
+
           <div fxLayout="row" fxLayoutAlign.gt-xs="end end" fxLayout.lt-sm="column" fxLayoutGap="0.7%"
             fxLayoutGap.xs="3%" fxLayoutGap.xs="7%">
-            <mat-form-field fxFlex fxFlex.lt-sm="100">
-              <mat-select id="inputSemester" placeholder="{{ 'LABEL_SEMESTER' | i18n }}"
-                title="{{ 'LABEL_SEMESTER' | i18n }}" name="semester" [(ngModel)]="classroom.semester"
-                [disabled]="acaoSistema.isAcaoVisualizar()" required>
-                <mat-option [value]="undefined">{{
-                  "LABEL_SELECIONE" | i18n
-                  }}</mat-option>
-                <mat-option *ngFor="let semester of semesters" [value]="semester">
-                  {{ semester.nome }}
-                </mat-option>
-              </mat-select>
-              <mat-error validationMessage [submitted]="submittedGrupo"></mat-error>
-            </mat-form-field>
+            <div fxLayout="column" fxLayoutAlign.gt-xs="start start" fxLayout.lt-sm="row" fxLayoutGap.lt-sm="3%"
+              fxLayoutGap.gt-xs="7%" *ngIf="acaoSistema.isAcaoAlterar() || acaoSistema.isAcaoVisualizar()">
+              <mat-label>{{'LABEL_ACESSO_BLOQUEADO' | i18n}}:</mat-label>
+              <mat-label>{{ (classroom.acessoBloqueado ? 'LABEL_SIM' : 'LABEL_NAO') | i18n }}</mat-label>
+            </div>
 
-            <mat-form-field fxFlex fxFlex.lt-sm="100">
-              <mat-select id="inputSubject" placeholder="{{ 'LABEL_SUBJECT' | i18n }}"
-                title="{{ 'LABEL_SUBJECT' | i18n }}" name="subject" [(ngModel)]="classroom.subject"
-                [disabled]="acaoSistema.isAcaoVisualizar()" required>
-                <mat-option [value]="undefined">{{
-                  "LABEL_SELECIONE" | i18n
-                  }}</mat-option>
-                <mat-option *ngFor="let subject of subjects" [value]="subject">
-                  {{ subject.nome }}
-                </mat-option>
-              </mat-select>
-              <mat-error validationMessage [submitted]="submittedGrupo"></mat-error>
-            </mat-form-field>
+
           </div>
+
+          <div class="content__title1" fxLayout="row" fxLayoutAlign.gt-xs="start center" fxLayout.lt-sm="column"
+            fxLayoutGap="0.7%">
+            <mat-label>{{ "LABEL_CLIENTE" | i18n }}</mat-label>
+            <mat-select placeholder="{{ 'LABEL_CLIENTE' | i18n }}" title="{{ 'LABEL_CLIENTE' | i18n }}"
+              [(ngModel)]="classroom.idSemester" [disabled]="acaoSistema.isAcaoVisualizar()" name="semester">
+              <mat-option [value]="undefined">{{
+                "LABEL_SELECIONE" | i18n
+                }}</mat-option>
+              <mat-option *ngFor="let semester of semesters" [value]="semester.id">
+                {{ semester.nome }}
+                <mat-error validationMessage [submitted]="submittedClassroom"></mat-error>
+              </mat-option>
+            </mat-select>
+
+            <mat-select placeholder="{{ 'LABEL_CLIENTE' | i18n }}" title="{{ 'LABEL_CLIENTE' | i18n }}"
+              [(ngModel)]="classroom.idSubject" [disabled]="acaoSistema.isAcaoVisualizar()" name="subject">
+              <mat-option [value]="undefined">{{
+                "LABEL_SELECIONE" | i18n
+                }}</mat-option>
+              <mat-option *ngFor="let subject of subjects" [value]="subject.id">
+                {{ subject.nome }}
+                <mat-error validationMessage [submitted]="submittedClassroom"></mat-error>
+              </mat-option>
+            </mat-select>
+
+
+          </div>
+
+
 
 
 
         </mat-card-content>
       </mat-card>
+
+
+
+
+
+
     </form>
 
-    <div fxLayout="row" fxLayoutAlign.gt-xs="center end" fxLayout.lt-sm="column" fxLayoutGap="0.7%">
-      <form #formTeacher="ngForm" fxFlex>
-        <mat-card fxLayout="column" fxLayoutGap="1%" fxLayoutGap.xs="2%">
-          <mat-card-title>
-            <span>{{ "LABEL_CARGOS_ACESSO" | i18n }}</span>
-          </mat-card-title>
-          <mat-card-content fxLayout="column" fxLayoutGap="0.7%" fxLayoutGap.xs="3%">
-            <div fxLayout="row" fxLayoutAlign.gt-xs="center center" fxLayout.lt-sm="column" fxLayoutGap="0.7%"
-              *ngIf="!acaoSistema.isAcaoVisualizar()">
-              <div fxFlex fxFlex.lt-sm="100"></div>
+    <form #formTeacher="ngForm">
+      <mat-card fxLayout="column" fxLayoutGap="1%" fxLayoutGap.xs="2%">
+        <mat-card-title>
+          <span>{{'LABEL_PRODUTOS_ACESSO' | i18n}}</span>
+        </mat-card-title>
+        <mat-card-content fxLayout="column" fxLayoutGap="0.7%" fxLayoutGap.xs="3%">
 
-              <mat-form-field fxFlex fxFlex.lt-sm="100">
-                <mat-select id="inputTeacher" placeholder="{{ 'LABEL_CARGO' | i18n }}"
-                  title="{{ 'LABEL_CARGO' | i18n }}" name="teacher" [(ngModel)]="teacherInclusao.teacher"
-                  [disabled]="acaoSistema.isAcaoVisualizar()" required>
-                  <mat-option [value]="undefined">{{
-                    "LABEL_SELECIONE" | i18n
-                    }}</mat-option>
-                  <mat-option *ngFor="let teacher of teachers" [value]="teacher">
-                    {{ teacher.nome }}
-                  </mat-option>
-                </mat-select>
-                <mat-error validationMessage [submitted]="submittedGrupo"></mat-error>
-              </mat-form-field>
+          <div fxLayout="row" fxLayoutAlign.gt-xs="center center" fxLayout.lt-sm="column" fxLayoutGap="0.7%"
+            *ngIf="!acaoSistema.isAcaoVisualizar()">
+            <div fxFlex fxFlex.lt-sm="100">
 
-              <a mat-mini-fab title="{{ 'LABEL_ADICIONAR_GRUPO' | i18n }}" class="btn-primary"
-                (click)="adicionarTeacher(teacherInclusao, formTeacher, $event)">
-                <mat-icon>add</mat-icon>
-              </a>
             </div>
 
-            <div fxLayout="column" fxFlex="100" *ngIf="dataSourceTeachers.data.length != 0">
-              <div class="table-detail">
-                <mat-table #table [dataSource]="dataSourceTeachers">
-                  <ng-container matColumnDef="nomeTeacherVinculado">
-                    <mat-header-cell class="style-header" fxHide.xs="true" fxLayoutAlign="center center"
-                      *matHeaderCellDef>
-                      {{ "LABEL_NOME_GRUPO_VINCULADO" | i18n }}
-                    </mat-header-cell>
-                    <mat-cell fxFlex.lt-sm="100" ngClass.gt-sm="style-column" fxLayoutAlign="start center"
-                      *matCellDef="let element">
-                      <div fxFlex fxLayout="row">
-                        <div fxFlex="80px" fxHide.gt-xs="true" fxLayoutAlign="center end">
-                          <span class="mat-body-strong">{{ "LABEL_NOME_GRUPO_VINCULADO" | i18n }} :</span>
-                        </div>
-                        <div>
-                          {{ element.nomeTeacher }}
-                        </div>
-                      </div>
-                    </mat-cell>
-                  </ng-container>
+            <mat-form-field fxFlex fxFlex.lt-sm="100">
+              <mat-select id="inputTeacher" placeholder="{{'LABEL_PRODUTO' | i18n}}" title="{{'LABEL_PRODUTO' | i18n}}"
+                name="teacher" [(ngModel)]="teacherInclusao.teacher"
+                [disabled]="teachersDisabled || acaoSistema.isAcaoVisualizar()" required>
+                <mat-option [value]="undefined">{{'LABEL_SELECIONE' | i18n}}</mat-option>
+                <mat-option *ngFor="let teacher of teachers" [value]="teacher">
+                  {{teacher.nome}}
+                </mat-option>
+              </mat-select>
+              <mat-error validationMessage [submitted]="submittedClassroom"></mat-error>
+            </mat-form-field>
 
-                  <ng-container matColumnDef="remover" *ngIf="!acaoSistema.isAcaoVisualizar()">
-                    <mat-header-cell fxFlex.gt-sm="100px" class="style-header f" fxLayoutAlign="center center"
-                      *matHeaderCellDef>
-                      {{ "LABEL_REMOVER" | i18n }}
-                    </mat-header-cell>
-                    <mat-cell fxFlex.lt-sm="100" fxLayoutAlign="center center" fxFlex.gt-sm="100px"
-                      *matCellDef="let element">
-                      <div fxFlex fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center">
-                        <div fxHide.gt-xs="true" fxLayoutAlign="center center">
-                          <span class="mat-body-strong">{{ "LABEL_REMOVER" | i18n }} :</span>
-                        </div>
-                        <div fxLayout="row" fxLayoutAlign="center center">
-                          <a mat-mini-fab title="{{ 'LABEL_REMOVER_GRUPO' | i18n }}" class="btn-primary"
-                            (click)="removerTeacher(element)">
-                            <mat-icon>delete</mat-icon>
-                          </a>
-                        </div>
-                      </div>
-                    </mat-cell>
-                  </ng-container>
 
-                  <mat-header-row *matHeaderRowDef="displayedColumns" fxHide.lt-sm="true"></mat-header-row>
-                  <mat-row *matRowDef="let row; columns: displayedColumns" fxLayout.lt-sm="column" fxLayout="row"
-                    fxLayoutAlign.lt-sm="space-around stretch" ngClass.lt-sm="mat-row-lt-sm"></mat-row>
-                </mat-table>
-              </div>
+
+            <a mat-mini-fab title="{{'LABEL_ADICIONAR_PRODUTO' | i18n}}" class="btn-primary"
+              (click)="adicionarTeacher(teacherInclusao, formTeacher, $event)">
+              <mat-icon>add</mat-icon>
+            </a>
+          </div>
+
+          <div fxLayout="column" fxFlex="100" *ngIf="dataSourceTeachers.data.length != 0">
+
+            <div class="table-detail">
+              <mat-table #table [dataSource]="dataSourceTeachers">
+
+
+                <ng-container matColumnDef="nomeTeacherVinculado">
+                  <mat-header-cell class="style-header" fxHide.xs="true" fxLayoutAlign="center center"
+                    *matHeaderCellDef> {{ 'LABEL_NOME_PRODUTO_VINCULADO' | i18n}} </mat-header-cell>
+                  <mat-cell fxFlex.lt-sm="100" ngClass.gt-sm="style-column" fxLayoutAlign="start center"
+                    *matCellDef="let element">
+                    <div fxFlex fxLayout="row">
+                      <div fxFlex="80px" fxHide.gt-xs="true" fxLayoutAlign="center end">
+                        <span class="mat-body-strong">{{ 'LABEL_NOME_PRODUTO_VINCULADO' | i18n}} :</span>
+                      </div>
+                      <div>
+                        {{element.nomeTeacher}}
+                      </div>
+                    </div>
+                  </mat-cell>
+                </ng-container>
+
+
+
+
+                <ng-container matColumnDef="remover" *ngIf="!acaoSistema.isAcaoVisualizar()">
+                  <mat-header-cell fxFlex.gt-sm="100px" class="style-header f" fxLayoutAlign="center center"
+                    *matHeaderCellDef> {{ 'LABEL_REMOVER' | i18n}} </mat-header-cell>
+                  <mat-cell fxFlex.lt-sm="100" fxLayoutAlign="center center" fxFlex.gt-sm="100px"
+                    *matCellDef="let element">
+                    <div fxFlex fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center">
+                      <div fxHide.gt-xs="true" fxLayoutAlign="center center">
+                        <span class="mat-body-strong">{{ 'LABEL_REMOVER' | i18n}} :</span>
+                      </div>
+                      <div fxLayout="row" fxLayoutAlign="center center">
+                        <a mat-mini-fab title="{{'LABEL_REMOVER_PRODUTO' | i18n}}" class="btn-primary"
+                          (click)="removerTeacher(element,classroom)">
+                          <mat-icon>delete</mat-icon>
+                        </a>
+                      </div>
+                    </div>
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns" fxHide.lt-sm="true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;" fxLayout.lt-sm="column" fxLayout="row"
+                  fxLayoutAlign.lt-sm="space-around stretch" ngClass.lt-sm="mat-row-lt-sm"></mat-row>
+
+              </mat-table>
             </div>
-          </mat-card-content>
-        </mat-card>
-      </form>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </form>
 
 
 
-    </div>
 
     <mat-card-footer fxLayout="column" fxLayoutGap="1%" fxLayoutGap.xs="2%">
       <div fxLayout="row" fxFlex="100" fxLayoutAlign="end center">
         <div fxFlex.gt-sm="30" fxFlex.sm="50" fxFlex.lt-sm="100" fxFlexAlign="space-between" fxLayoutAlign="end center">
-          <a title="{{ 'LABEL_VOLTAR' | i18n }}" (click)="cancelar()" fxFlex fxFlexOffset="1"
+          <a title="{{'LABEL_VOLTAR' | i18n}}" (click)="cancelar()" fxFlex fxFlexOffset="1"
             class="mat-button mat-raised-button mat-primary mat-button-base" *ngIf="acaoSistema.isAcaoVisualizar()">
-            <span>{{ "LABEL_VOLTAR" | i18n }}</span>
+            <span>{{'LABEL_VOLTAR' | i18n}}</span>
           </a>
-          <a title="{{ 'LABEL_CANCELAR' | i18n }}" (click)="cancelar()" fxFlex fxFlexOffset="1"
+          <a title="{{'LABEL_CANCELAR' | i18n}}" (click)="cancelar()" fxFlex fxFlexOffset="1"
             class="mat-button mat-raised-button mat-warn mat-button-base" *ngIf="!acaoSistema.isAcaoVisualizar()">
-            <span>{{ "LABEL_CANCELAR" | i18n }}</span>
+            <span>{{'LABEL_CANCELAR' | i18n}}</span>
           </a>
-          <button type="submit" title="{{ 'LABEL_SALVAR' | i18n }}" (click)="salvar(classroom, formClassroom, $event)"
-            fxFlex fxFlexOffset="1" class="mat-button mat-raised-button mat-primary mat-button-base"
+          <button type="submit" title="{{'LABEL_SALVAR' | i18n}}" (click)="salvar(classroom, formVenda, $event)" fxFlex
+            fxFlexOffset="1" class="mat-button mat-raised-button mat-primary mat-button-base"
             *ngIf="acaoSistema.isAcaoAlterar() || acaoSistema.isAcaoIncluir()">
-            <span>{{ "LABEL_SALVAR" | i18n }}</span>
+            <span>{{'LABEL_SALVAR' | i18n}}</span>
           </button>
         </div>
       </div>

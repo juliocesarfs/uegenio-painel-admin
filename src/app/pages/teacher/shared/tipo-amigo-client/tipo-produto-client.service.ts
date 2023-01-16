@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
-import { FiltroUsuarioDTO } from '../../../../shared/dto/filtro-usuario.dto';
+import { FiltroTeacherDTO } from '../../../../shared/dto/filtro-teacher.dto';
 
 /**
  * Classe de integração com o serviço de Usuário.
@@ -21,7 +21,7 @@ export class TeacherClientService {
   constructor(private http: HttpClient) { }
 
   /**
-   * Retorna a instância de Usuário conforme o 'id' informado.
+   * Retorna a instância de Teacher conforme o 'id' informado.
    *
    * @param id
    * @return
@@ -30,39 +30,47 @@ export class TeacherClientService {
     return this.http.get(`${environment.urlApi}/teacher/${id}`);
   }
 
-  public getAll(): Observable<any> {
-    return this.http.get(`${environment.urlApi}/teacher/`);
-  }
-
   /**
-   * Retorna o array de Usuários confome o filtro de pesquisa informado.
+   * Retorna o array de Teacher confome o filtro de pesquisa informado.
    *
    * @param filtroDTO
    */
-  public getByFiltro(filtroDTO: FiltroUsuarioDTO): Observable<any> {
+  public getByFiltro(filtroDTO: FiltroTeacherDTO): Observable<any> {
     return this.http.get(`${environment.urlApi}/teacher/filtro`, {
       params: filtroDTO.toParams()
     });
   }
 
+
   /**
-   * Salva a instância de Usuário.
+   * Salva a instância de teacher.
    *
-   * @param usuario
+   * @param teacher
    */
-  public salvar(usuario: any): Observable<any> {
+  public salvar(teacher: any): Observable<any> {
     let result: Observable<any> = null;
 
-    if (usuario.id) {
-      result = this.http.put(`${environment.urlApi}/teacher/${usuario.id}`, usuario);
+    if (teacher.id) {
+      result = this.http.put(`${environment.urlApi}/teacher/${teacher.id}`, teacher);
     } else {
-      result = this.http.post(`${environment.urlApi}/teacher/`, usuario);
+      result = this.http.post(`${environment.urlApi}/teacher/`, teacher);
     }
     return result;
   }
 
   /**
-   * Salva a instância de Usuário.
+   * Torna Teacher o Teacher pelo 'id' informado (é Teacher=true).
+   *
+   * @param id
+   * @return
+   */
+  public tornarTeacher(id: number): Observable<any> {
+    return this.http.put(`${environment.urlApi}/teacher/${id}/tornar-teacher`, {});
+  }
+
+
+  /**
+   * remover a instância de teacher.
    *
    * @param teacher
    */
@@ -73,5 +81,25 @@ export class TeacherClientService {
 
     return result;
   }
+
+
+  /**
+   * Retorna a lista de Grupos Ativos.
+   *
+   * @param idSistema
+   */
+  public getTeachersAtivos(): Observable<any> {
+    return this.http.get(`${environment.urlApi}/teacher/ativos`);
+  }
+
+  /**
+ * Retorna a lista de Grupos Ativos.
+ *
+ * @param idSistema
+ */
+  public getRanking(): Observable<any> {
+    return this.http.get(`${environment.urlApi}/teacher/ranking`);
+  }
+
 
 }

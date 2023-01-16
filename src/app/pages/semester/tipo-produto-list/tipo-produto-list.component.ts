@@ -9,7 +9,7 @@ import { SecurityService } from 'src/app/shared/security/security.service';
 import { AbstractComponent } from '../../../shared/component/Abstract.component';
 
 import { FiltroSemesterDTO } from '../../../shared/dto/filtro-semester.dto';
-import { SemesterClientService } from '../shared/tipo-amigo-client/tipo-produto-client.service';
+import { SemesterClientService } from '../shared/semester-client/semester-client.service';
 
 /**
  * Componente de listagem de Usuário.

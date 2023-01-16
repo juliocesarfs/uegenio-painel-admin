@@ -28,11 +28,8 @@ export class ClassroomListComponent extends AbstractComponent implements OnInit 
   public tiposCadastro: any[];
 
   public displayedColumns = [
-    "cpf",
-    "nome",
-    "email",
-    "ultimoAcesso",
-    "statusPortal",
+    "local",
+    "subject",
     "acoes",
   ];
 
@@ -72,11 +69,12 @@ export class ClassroomListComponent extends AbstractComponent implements OnInit 
    * @param filtroClassroomDTO
    */
   public pesquisar(filtroClassroomDTO: FiltroClassroomDTO): void {
-    console.log(filtroClassroomDTO.email);
+    console.log(filtroClassroomDTO);
     this.classroomClientService.getByFiltro(filtroClassroomDTO).subscribe(
       (data) => {
         this.dataSource.paginator = this.paginator;
         this.dataSource.data = data;
+        console.log('dados do back', data);
       },
       (data) => {
         this.messageService.addMsgDanger(data);
@@ -93,68 +91,6 @@ export class ClassroomListComponent extends AbstractComponent implements OnInit 
     this.dataSource.data = [];
   }
 
-  /**
-   * Altera o status do Usuário informado.
-   *
-   * @param classroom
-   */
-  public alterarStatusClassroom(classroom: any): void {
-    if (!classroom.status) {
-      this.inativar(classroom);
-    } else {
-      this.ativar(classroom);
-    }
-  }
 
-  /**
-   * Ativa o Usuário informado.
-   *
-   * @param classroom
-   */
-  private ativar(classroom: any): void {
-    this.messageService.addConfirmYesNo(
-      "MSG034",
-      () => {
-        this.classroomClientService.ativar(classroom.id).subscribe(
-          () => {
-            this.pesquisar(this.filtroDTO);
-            this.messageService.addMsgSuccess("MSG007");
-          },
-          (error) => {
-            classroom.status = false;
-            this.messageService.addMsgDanger(error);
-          }
-        );
-      },
-      () => {
-        classroom.status = false;
-      }
-    );
-  }
 
-  /**
-   * Inativa o Usuário informado.
-   *
-   * @param classroom
-   */
-  private inativar(classroom: any): void {
-    this.messageService.addConfirmYesNo(
-      "MSG033",
-      () => {
-        this.classroomClientService.inativar(classroom.id).subscribe(
-          () => {
-            this.pesquisar(this.filtroDTO);
-            this.messageService.addMsgSuccess("MSG007");
-          },
-          (error) => {
-            classroom.status = true;
-            this.messageService.addMsgDanger(error);
-          }
-        );
-      },
-      () => {
-        classroom.status = true;
-      }
-    );
-  }
 }

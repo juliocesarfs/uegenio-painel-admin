@@ -17,6 +17,7 @@ export class AppMessage implements InternacionalizacaoResource {
       LABEL_FILTRAR: "Filtrar",
       LABEL_DATAFINAL: "Data do fim",
       LABEL_DATAINICIAL: "Data de inicio",
+      LABEL_SEMESTER: "Semestre",
       LABEL_VALOR: "O valor total do estoque é:",
       LABEL_OK: "OK",
       LABEL_SAIR: "Sair",
@@ -68,6 +69,9 @@ export class AppMessage implements InternacionalizacaoResource {
 
       LABEL_PESQUISAR_VENDA: "Pesquisar Venda",
       LABEL_VALORTOTAL: "Valor da venda",
+
+      LABEL_SUBJECT: "Disciplina",
+      LABEL_LOCAL: "Local",
 
       LABEL_DATAVENDA: "Data da venda",
       LABEL_NOME_CLIENTE: "Nome do Cliente",

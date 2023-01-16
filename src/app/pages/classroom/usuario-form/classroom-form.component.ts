@@ -1,3 +1,5 @@
+import { TeachersClassroomsClientService } from '../../../shared/services/teachers-classrooms-client/teachers-classroom-client.service';
+
 /* tslint:disable:no-redundant-jsdoc */
 import { NgForm } from "@angular/forms";
 import { Component, ViewChild } from "@angular/core";
@@ -9,10 +11,16 @@ import { MessageService } from "../../../shared/message/message.service";
 import { AcaoSistema } from "../../../shared/component/acao-sistema.acao";
 import { SecurityService } from "../../../shared/security/security.service";
 import { ClassroomClientService } from "../shared/usuario-client/classroom-client.service";
-import { GrupoClientService } from "../../grupo/shared/grupo-client/grupo-client.service";
-import { SubjectClientService } from "../../tipo-produto/shared/tipo-amigo-client/tipo-produto-client.service";
-import { SemesterClientService } from "../../semester/shared/tipo-amigo-client/tipo-produto-client.service";
 import { TeacherClientService } from "../../teacher/shared/tipo-amigo-client/tipo-produto-client.service";
+import { exit } from 'process';
+import { isProtractorLocator } from 'protractor/built/locators';
+import { AnimationStyleMetadata } from '@angular/animations';
+import { SemesterClientService } from '../../semester/shared/semester-client/semester-client.service';
+import { SubjectClientService } from '../../tipo-produto/shared/tipo-amigo-client/tipo-produto-client.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+
 
 /**
  * Componente de formulário de Usuário.
@@ -26,17 +34,22 @@ import { TeacherClientService } from "../../teacher/shared/tipo-amigo-client/tip
 })
 export class ClassroomFormComponent {
   public acaoSistema: AcaoSistema;
-
+  // public valorTotalClassroom: Number;
   public classroom: any;
-  public telefonesClassroom: any[];
   public teacherInclusao: any;
   public teachersVinculados: any[];
-  public subjects: any[];
-  public semesters: any[];
   public teachers: any[];
   public submittedClassroom: boolean;
-  public submittedGrupo: boolean;
+  public submittedTeacher: boolean;
+  public Number?: String;
+  public bool?: Boolean;
+  public teste: string;
 
+  public semesters: any[];
+  public subjects: any[];
+
+
+  public teachersClassrooms: any[];
   private dialogRef: MatDialogRef<any>;
 
   public dataSourceTeachers: MatTableDataSource<any>;
@@ -44,7 +57,7 @@ export class ClassroomFormComponent {
   public displayedColumns: any;
 
   @ViewChild("formClassroom", { static: true }) formClassroom: NgForm;
-  @ViewChild("formGrupo", { static: true }) formGrupo: NgForm;
+  @ViewChild("formTeacher", { static: true }) formTeacher: NgForm;
 
   /**
    * Construtor da classe.
@@ -54,7 +67,7 @@ export class ClassroomFormComponent {
    * @param dialog
    * @param messageService
    * @param securityService
-   * @param grupoClientService
+   * @param teacherClientService
    * @param classroomClientService
    */
   constructor(
@@ -63,13 +76,21 @@ export class ClassroomFormComponent {
     private dialog: MatDialog,
     private messageService: MessageService,
     public securityService: SecurityService,
-    private subjectClientService: SubjectClientService,
-    private semesterClientService: SemesterClientService,
     private teacherClientService: TeacherClientService,
-    private classroomClientService: ClassroomClientService
+    private classroomClientService: ClassroomClientService,
+    public teachersClassroom: TeachersClassroomsClientService,
+    public semesterClientService: SemesterClientService,
+    public subjectsClientService: SubjectClientService,
+    public http: HttpClient
   ) {
+
+    this.teste = 'aoba';
     this.acaoSistema = new AcaoSistema(route);
     this.dataSourceTeachers = new MatTableDataSource<any>();
+    this.teachersClassrooms = route.snapshot.data.teachersClassrooms;
+    //this.semesters = route.snapshot.data.semesters;
+    //this.subjects = route.snapshot.data.subjects;
+
 
     if (this.acaoSistema.isAcaoVisualizar()) {
       this.displayedColumns = ["nomeTeacherVinculado"];
@@ -81,25 +102,24 @@ export class ClassroomFormComponent {
       this.teacherInclusao = {};
       this.teachersVinculados = [];
       this.dataSourceTeachers.data = this.teachersVinculados;
+
       this.carregarTeachers();
+      this.carregarSemesters();
       this.carregarSubjects();
-      this.carregarSemestres();
 
       // Inicializa o Usuário para Inclusão
       this.classroom = {
         teachersClassrooms: [],
-        idSemester: null,
-        idSubject: null,
-        nomeSubject: null,
-        idTeacher: [],
-        local: 'Sala 201'
       };
+
+
     }
 
     if (this.acaoSistema.isAcaoAlterar()) {
       this.teacherInclusao = {};
+      this.carregarTeachers();
+      this.carregarSemesters();
       this.carregarSubjects();
-      this.carregarSemestres();
     }
 
     if (
@@ -107,33 +127,33 @@ export class ClassroomFormComponent {
       this.acaoSistema.isAcaoVisualizar()
     ) {
       this.classroom = route.snapshot.data.classroom;
-      this.telefonesClassroom = this.classroom.telefones;
-      this.teachersVinculados = this.classroom.teachers;
+      this.teachersVinculados = this.classroom.teachersClassrooms;
       this.dataSourceTeachers.data = this.teachersVinculados;
     }
   }
 
   /**
-   * Carrega os Grupos pelo id do Sistema.
+   * Carrega os Teachers pelo id do Sistema.
    *
    * @param idSistema
    */
-  public carregarSubjects(): void {
-    this.subjectClientService.getAll().subscribe(
+  public carregarTeachers(): void {
+    this.teacherClientService.getTeachersAtivos().subscribe(
       (data) => {
-        this.subjects = data;
+        this.teachers = data;
       },
       (error) => {
-        this.subjects = undefined;
+        this.teachers = undefined;
         if (error.code !== "ME003") {
           this.messageService.addMsgDanger(error);
         }
       }
     );
+    delete this.teacherInclusao.teacher;
   }
 
-  public carregarSemestres(): void {
-    this.semesterClientService.getAll().subscribe(
+  public carregarSemesters(): void {
+    this.semesterClientService.getSemestersAtivos().subscribe(
       (data) => {
         this.semesters = data;
       },
@@ -146,13 +166,13 @@ export class ClassroomFormComponent {
     );
   }
 
-  public carregarTeachers(): void {
-    this.teacherClientService.getAll().subscribe(
+  public carregarSubjects(): void {
+    this.getSubjectsAtivos().subscribe(
       (data) => {
-        this.teachers = data;
+        this.subjects = data;
       },
       (error) => {
-        this.teachers = undefined;
+        this.subjects = undefined;
         if (error.code !== "ME003") {
           this.messageService.addMsgDanger(error);
         }
@@ -160,54 +180,83 @@ export class ClassroomFormComponent {
     );
   }
 
+  public getSubjectsAtivos(): Observable<any> {
+    return this.http.get(`${environment.urlApi}/subject/ativos`);
+  }
+
+
   /**
-   * Adicionar o Grupo à lista de Grupos do Usuário.
+   * Adicionar o Teacher à lista de Teachers do Usuário.
    *
-   * @param grupoInclusao
+   * @param teacherInclusao
    * @param form
    * @param event
    */
   public adicionarTeacher(teacherInclusao: any, form: NgForm, event: any): void {
     form.onSubmit(event);
-    this.submittedGrupo = true;
+    this.submittedTeacher = true;
 
     if (form.valid) {
-      // Busca o Grupo a ser adicionado na lista
+      // Busca o Teacher a ser adicionado na lista
       const teacherVinculado = this.teachersVinculados.find(
         (teacher) => teacher.idTeacher === teacherInclusao.teacher.id
       );
 
-      // Verifica se o Grupo foi encontrado
+
+
+
+      // Verifica se o Teacher foi encontrado
       if (teacherVinculado === undefined) {
         this.teachersVinculados.push({
           idClassroom: this.classroom.id,
           idTeacher: teacherInclusao.teacher.id,
-          nome: teacherInclusao.teacher.nome,
-          email: teacherInclusao.teacher.email
+          nomeTeacher: teacherInclusao.teacher.nome,
+          emailTeacher: teacherInclusao.teacher.email,
+          nomeSistemaTeacher: teacherInclusao.teacher.nomeSistema,
+
         });
+
         this.dataSourceTeachers.data = this.teachersVinculados;
 
-        console.log(this.dataSourceTeachers.data);
+
         form.onReset();
         this.teacherInclusao = {};
-      } else {
-        this.messageService.addMsgDanger("MSG011");
+
       }
     }
   }
 
   /**
-   * Remove o Grupo da lista de grupos do Usuário.
+   * Remove o Teacher da lista de teachers do Usuário.
    *
-   * @param grupo
+   * @param teacher
+   *
+   * Alterei com adição do service, html
    */
-  public removerTeacher(grupo: any) {
+  public removerTeacher(teacher: any, classroom: any) {
+
     this.messageService.addConfirmYesNo("MSG006", () => {
-      const index = this.teachersVinculados.indexOf(grupo);
+
+      const index = this.teachersVinculados.indexOf(teacher);
       this.teachersVinculados.splice(index, 1);
       this.dataSourceTeachers.data = this.teachersVinculados;
-      this.messageService.addMsgSuccess("MSG007");
+      this.classroomClientService.alterarTeacher(classroom).subscribe(
+        () => {
+
+          this.messageService.addMsgSuccess("MSG007");
+        },
+        (error) => {
+          this.messageService.addMsgDanger(error);
+        }
+      );
+
+
+
+
     });
+
+
+
   }
 
   /**
@@ -221,23 +270,13 @@ export class ClassroomFormComponent {
     form.onSubmit(event);
     this.submittedClassroom = true;
 
+
     if (form.valid) {
       if (this.teachersVinculados.length > 0) {
+
         classroom.teachersClassrooms = this.teachersVinculados;
-        // classroom.telefones = this.telefonesClassroom;
-
-
-        classroom.idSemester = classroom.semester.id
-        classroom.nomeSubject = classroom.subject.nome
-        classroom.idSubject = classroom.subject.id
-
-        for (let teacher of this.teachersVinculados) {
-          classroom.idTeacher.push(teacher.idTeacher)
-        }
-
-        console.log(classroom);
-
-
+        classroom.local = 'Sala 201'
+        console.log("Classroom Envio", classroom);
 
 
         this.classroomClientService.salvar(classroom).subscribe(
@@ -249,7 +288,6 @@ export class ClassroomFormComponent {
             this.messageService.addMsgDanger(error);
           }
         );
-
       } else {
         this.messageService.addMsgSuccess("MSG039");
       }
@@ -258,77 +296,9 @@ export class ClassroomFormComponent {
     }
   }
 
-  /**
-   * Atualiza o Tipo de Usuário.
-   *
-   * @param event
-   */
-  public atualizarTipoClassroom(event: any): void {
-    this.classroom.tipo = event.value;
-  }
 
-  /**
-   * Altera o status do Usuário informado.
-   *
-   * @param classroom
-   */
-  public alterarStatusClassroom(classroom: any): void {
-    if (!classroom.status) {
-      this.inativar(classroom);
-    } else {
-      this.ativar(classroom);
-    }
-  }
 
-  /**
-   * Ativa o Usuário informado.
-   *
-   * @param classroom
-   */
-  private ativar(classroom: any): void {
-    this.messageService.addConfirmYesNo(
-      "MSG034",
-      () => {
-        this.classroomClientService.ativar(classroom.id).subscribe(
-          () => {
-            this.messageService.addMsgSuccess("MSG007");
-          },
-          (error) => {
-            classroom.status = false;
-            this.messageService.addMsgDanger(error);
-          }
-        );
-      },
-      () => {
-        classroom.status = false;
-      }
-    );
-  }
 
-  /**
-   * Inativa o Usuário informado.
-   *
-   * @param classroom
-   */
-  private inativar(classroom: any): void {
-    this.messageService.addConfirmYesNo(
-      "MSG033",
-      () => {
-        this.classroomClientService.inativar(classroom.id).subscribe(
-          () => {
-            this.messageService.addMsgSuccess("MSG007");
-          },
-          (error) => {
-            classroom.status = true;
-            this.messageService.addMsgDanger(error);
-          }
-        );
-      },
-      () => {
-        classroom.status = true;
-      }
-    );
-  }
 
   /**
    * Confirma o cancelamento e volta para a tela de Pesquisa.
@@ -355,23 +325,15 @@ export class ClassroomFormComponent {
     this.dialogRef.close();
   }
 
-  /**
-   * Verifica se o CPF informado é válido.
-   */
-  public validarCpf(): void {
-    if (this.classroom.cpf === undefined || this.classroom.cpf.length !== 11) {
-      delete this.classroom.cpf;
-    } else {
-      // Verifica se o CPF informado é válido e se está em uso
-      this.classroomClientService
-        .validarCpf(this.classroom.cpf, this.classroom.id)
-        .subscribe(
-          () => { },
-          (error) => {
-            delete this.classroom.cpf;
-            this.messageService.addMsgDanger(error);
-          }
-        );
-    }
-  }
+
+
+
+
+
+
+
+
+
+
+
 }

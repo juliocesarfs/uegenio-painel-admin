@@ -6,7 +6,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MessageService } from '../../../shared/message/message.service';
 import { AcaoSistema } from '../../../shared/component/acao-sistema.acao';
 import { SecurityService } from '../../../shared/security/security.service';
-import { SemesterClientService } from '../shared/tipo-amigo-client/tipo-produto-client.service';
+import { SemesterClientService } from '../shared/semester-client/semester-client.service';
 
 /**
  * Componente de formulário de Usuário.

@@ -64,14 +64,14 @@ export const AdministracaoRoutes: Routes = [
       {
         path: "semester",
         loadChildren: () =>
-          import("../semester/tipo-produto.module").then(
+          import("../semester/semester.module").then(
             (m) => m.SemesterModule
           ),
       },
       {
         path: "classroom",
         loadChildren: () =>
-          import("../classroom/usuario.module").then(
+          import("../classroom/classroom.module").then(
             (m) => m.ClassroomModule
           ),
       },
@@ -85,11 +85,7 @@ export const AdministracaoRoutes: Routes = [
         loadChildren: () =>
           import("../mensagem/mensagem.module").then((m) => m.MensagemModule),
       },
-      {
-        path: "venda",
-        loadChildren: () =>
-          import("../venda/venda.module").then((m) => m.VendaModule),
-      },
+
       {
         path: "cliente",
         loadChildren: () =>

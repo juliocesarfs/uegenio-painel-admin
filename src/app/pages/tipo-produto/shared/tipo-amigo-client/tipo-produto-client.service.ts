@@ -35,6 +35,10 @@ export class SubjectClientService {
     return this.http.get(`${environment.urlApi}/subject/`);
   }
 
+  public getSubjectsAtivos(): Observable<any> {
+    return this.http.get(`${environment.urlApi}/subject/ativos`);
+  }
+
   /**
    * Retorna o array de Usuários confome o filtro de pesquisa informado.
    *

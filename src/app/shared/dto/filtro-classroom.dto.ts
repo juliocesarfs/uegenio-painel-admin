@@ -17,11 +17,8 @@ export class FiltroClassroomDTO {
    * @param email
    */
   constructor(
-    public cpf?: string,
-    public nome?: string,
-    public status?: string,
-    public idTipo?: string,
-    public email?: string
+    public local?: string,
+
   ) { }
 
   /**
@@ -46,25 +43,10 @@ export class FiltroClassroomDTO {
   public toParams(): HttpParams {
     let params = new HttpParams();
 
-    if (this.cpf) {
-      params = params.append("cpf", this.cpf);
+    if (this.local) {
+      params = params.append("local", this.local);
     }
 
-    if (this.nome) {
-      params = params.append("nome", this.nome);
-    }
-
-    if (this.status !== undefined) {
-      params = params.append("idStatus", this.status ? "A" : "I");
-    }
-
-    if (this.idTipo) {
-      params = params.append("idTipo", this.idTipo);
-    }
-
-    if (this.email) {
-      params = params.append("email", this.email);
-    }
 
     return params;
   }

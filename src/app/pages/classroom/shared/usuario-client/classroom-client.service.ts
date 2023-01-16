@@ -1,18 +1,18 @@
 /* tslint:disable:no-redundant-jsdoc */
-import { Observable } from "rxjs";
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { environment } from "../../../../../environments/environment";
-import { FiltroClassroomDTO } from "../../../../shared/dto/filtro-classroom.dto";
-import { FiltroUserKeycloakDTO } from "../../../../shared/dto/filtro-user-keycloak.dto";
+import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../../environments/environment';
+import { FiltroClassroomDTO } from '../../../../shared/dto/filtro-classroom.dto';
 
 /**
  * Classe de integração com o serviço de Usuário.
  */
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root'
 })
 export class ClassroomClientService {
+
   /**
    * Construtor da classe.
    *
@@ -21,7 +21,7 @@ export class ClassroomClientService {
   constructor(private http: HttpClient) { }
 
   /**
-   * Retorna a instância de Usuário conforme o 'id' informado.
+   * Retorna a instância de Classroom conforme o 'id' informado.
    *
    * @param id
    * @return
@@ -31,31 +31,29 @@ export class ClassroomClientService {
   }
 
   /**
-   * Retorna o array de Usuários confome o filtro de pesquisa informado.
+   * Retorna o array de Classroom confome o filtro de pesquisa informado.
    *
    * @param filtroDTO
    */
   public getByFiltro(filtroDTO: FiltroClassroomDTO): Observable<any> {
     return this.http.get(`${environment.urlApi}/classroom/filtro`, {
-      params: filtroDTO.toParams(),
+      params: filtroDTO.toParams()
     });
   }
 
   /**
-   * Retorna o array de Usuários do AD confome o filtro de pesquisa informado.
+   * Retorna o array de Classroom confome o filtro de pesquisa informado.
    *
    * @param filtroDTO
    */
-  public getClassroomsADByFiltro(
-    filtroDTO: FiltroUserKeycloakDTO
-  ): Observable<any> {
-    return this.http.get(`${environment.urlApi}/classroom/ad/filtro`, {
-      params: filtroDTO.toParams(),
+  public getCliente(): Observable<any> {
+    return this.http.get(`${environment.urlApi}/classroom/classroomsClientes`, {
     });
   }
 
+
   /**
-   * Salva a instância de Usuário.
+   * Salva a instância de classroom.
    *
    * @param classroom
    */
@@ -63,54 +61,36 @@ export class ClassroomClientService {
     let result: Observable<any> = null;
 
     if (classroom.id) {
-      result = this.http.put(
-        `${environment.urlApi}/classroom/${classroom.id}`,
-        classroom
-      );
+
+      result = this.http.put(`${environment.urlApi}/classroom/${classroom.id}`, classroom);
     } else {
       result = this.http.post(`${environment.urlApi}/classroom/`, classroom);
+
     }
     return result;
   }
 
-  /**
-   * Ativa o Usuário pelo 'id' informado.
-   *
-   * @param id
-   * @return
-   */
-  public ativar(id: number): Observable<any> {
-    return this.http.put(`${environment.urlApi}/classroom/${id}/ativo`, {});
+  public alterarTeacher(classroom: any): Observable<any> {
+    let result: Observable<any> = null;
+    result = this.http.put(`${environment.urlApi}/classroom/alterar/${classroom.id}`, classroom);
+
+    return result;
   }
 
-  /**
-   *  Inativa Usuário pelo 'id' informado.
-   *
-   * @param id
-   * @return
-   */
-  public inativar(id: number): Observable<any> {
-    return this.http.put(`${environment.urlApi}/classroom/${id}/inativo`, {});
-  }
+
 
   /**
-   * Retorna se o CPF informado é válido e se está em uso.
+   * remover a instância de classroom.
    *
-   * @param cpf
-   * @param id
+   * @param classroom
    */
-  public validarCpf(cpf: string, id: number): Observable<any> {
-    let observable: Observable<any>;
+  public remover(classroom: any): Observable<any> {
+    let result: Observable<any> = null;
 
-    if (id === undefined) {
-      observable = this.http.get(
-        `${environment.urlApi}/classroom/cpf/valido/${cpf}`
-      );
-    } else {
-      observable = this.http.get(
-        `${environment.urlApi}/classroom/${id}/cpf/valido/${cpf}`
-      );
-    }
-    return observable;
+    result = this.http.delete(`${environment.urlApi}/classroom/${classroom.id}`, {});
+
+    return result;
   }
+
+
 }

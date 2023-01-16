@@ -22,8 +22,8 @@ export class FiltroVendaDTO {
     public idProduto?: number,
     public valorTotal?: DoubleRange,
     public dataVenda?: string,
-    public statusVendido?:boolean,
-    public statusEspera?:boolean
+    public statusVendido?: boolean,
+    public statusEspera?: boolean
   ) { }
 
   /**
@@ -49,15 +49,15 @@ export class FiltroVendaDTO {
     let params = new HttpParams();
 
     if (this.idProduto) {
-      params = params.append('idTipoVenda', String(this.idProduto) );
+      params = params.append('idTipoVenda', String(this.idProduto));
     }
 
     if (this.dataVenda) {
-      params = params.append('dataVenda', this.dataVenda );
+      params = params.append('dataVenda', this.dataVenda);
     }
 
     if (this.valorTotal) {
-      params = params.append('valorTotal', this.valorTotal.toString() );
+      params = params.append('valorTotal', this.valorTotal.toString());
     }
 
 

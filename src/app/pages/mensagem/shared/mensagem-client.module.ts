@@ -1,9 +1,8 @@
 
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 
-import { ProdutoListResolve } from '../../produto/shared/produto-client/produto-list.resolve';
 import { MensagemClientService } from './mensagem-client.service';
 import { MensagemResolve } from './mensagem.resolve';
 import { MensagemListResolve } from './mensagem-list.resolve';
@@ -23,7 +22,6 @@ import { MensagemTodosResolve } from './mensagemtodos.resolve';
     MensagemResolve,
     MensagemListResolve,
     MensagemTodosResolve,
-    ProdutoListResolve
   ]
 })
 export class MensagemClientModule { }

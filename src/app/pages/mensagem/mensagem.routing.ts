@@ -1,10 +1,9 @@
-import { ProdutoListResolve } from './../produto/shared/produto-client/produto-list.resolve';
 import { ClienteListResolve } from './../cliente/shared/cliente-client/cliente-list.resolve';
-import {Routes} from '@angular/router';
-import {SecurityGuard} from '../../shared/security/security.guard';
+import { Routes } from '@angular/router';
+import { SecurityGuard } from '../../shared/security/security.guard';
 
-import {MensagemFormComponent} from './mensagem-form/mensagem-form.component';
-import {MensagemListComponent} from './mensagem-list/mensagem-list.component';
+import { MensagemFormComponent } from './mensagem-form/mensagem-form.component';
+import { MensagemListComponent } from './mensagem-list/mensagem-list.component';
 import { MensagemListResolve } from './shared/mensagem-list.resolve';
 import { MensagemResolve } from './shared/mensagem.resolve';
 import { MensagemTodosResolve } from './shared/mensagemtodos.resolve';
@@ -34,9 +33,7 @@ export const MensagemRoutes: Routes = [
         ]
       }
     },
-    resolve: {
-      produto: ProdutoListResolve,
-    }
+
   },
 
   {
@@ -53,9 +50,7 @@ export const MensagemRoutes: Routes = [
         ]
       }
     },
-    resolve: {
-      produto: ProdutoListResolve
-    }
+
   },
   {
     path: 'listar',
@@ -72,7 +67,6 @@ export const MensagemRoutes: Routes = [
     },
     resolve: {
       mensagem: MensagemListResolve,
-      produto: ProdutoListResolve,
       mensagem1: MensagemTodosResolve
     }
   },
@@ -92,7 +86,6 @@ export const MensagemRoutes: Routes = [
     },
     resolve: {
       mensagem: MensagemResolve,
-      produto: ProdutoListResolve,
       mensagem1: MensagemTodosResolve
     }
   },
@@ -112,7 +105,6 @@ export const MensagemRoutes: Routes = [
     },
     resolve: {
       mensagem: MensagemResolve,
-      produto: ProdutoListResolve,
       mensagem1: MensagemTodosResolve
     }
   },

@@ -281,7 +281,7 @@ export class AppMessage implements InternacionalizacaoResource {
       MSG035: "J\u00E1 existe um grupo com o nome informado.",
       MSG036: "Nenhum usu\u00E1rio foi selecionado.",
       MSG038: "O login informado n\u00E3o foi encontrado no sistema AD.",
-      MSG039: "\u00C9 obrigat\u00F3rio informar pelo menos um grupo.",
+      MSG039: '\u00C9 obrigat\u00F3rio informar horários e/ou professor(es).',
       MSG041: "A data final deve ser maior ou igual a data inicial.",
       MSG042: "Usu\u00E1rio Bloqueado",
       MSG044:
@@ -293,6 +293,9 @@ export class AppMessage implements InternacionalizacaoResource {
       MSG060: 'Deixar de estar pendente?',
       MSG061: 'Transformar venda em pendente?',
       MSG062: 'Transformar venda em concluida?',
+
+      MSG070: 'Hora inicial não pode ser maior que a hora final',
+      MSG071: 'Data inicial não pode ser maior que a data final',
 
       // Validation
       required: "Campo obrigat\u00F3rio n\u00E3o preenchido.",

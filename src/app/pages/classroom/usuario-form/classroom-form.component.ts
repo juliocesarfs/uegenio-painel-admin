@@ -38,26 +38,35 @@ export class ClassroomFormComponent {
   public classroom: any;
   public teacherInclusao: any;
   public teachersVinculados: any[];
+  public hourInclusao: any;
+  public hoursVinculados: any[];
   public teachers: any[];
   public submittedClassroom: boolean;
   public submittedTeacher: boolean;
+  public submittedSemester: boolean;
+  public submittedHour: boolean;
   public Number?: String;
   public bool?: Boolean;
   public teste: string;
 
   public semesters: any[];
   public subjects: any[];
+  public weekDays: any[];
+  public hours: any[];
 
 
   public teachersClassrooms: any[];
   private dialogRef: MatDialogRef<any>;
 
   public dataSourceTeachers: MatTableDataSource<any>;
+  public dataSourceHours: MatTableDataSource<any>;
 
   public displayedColumns: any;
+  public displayedColumns2: any;
 
   @ViewChild("formClassroom", { static: true }) formClassroom: NgForm;
   @ViewChild("formTeacher", { static: true }) formTeacher: NgForm;
+  @ViewChild("formHour", { static: true }) formHour: NgForm;
 
   /**
    * Construtor da classe.
@@ -87,29 +96,50 @@ export class ClassroomFormComponent {
     this.teste = 'aoba';
     this.acaoSistema = new AcaoSistema(route);
     this.dataSourceTeachers = new MatTableDataSource<any>();
+    this.dataSourceHours = new MatTableDataSource<any>();
     this.teachersClassrooms = route.snapshot.data.teachersClassrooms;
     //this.semesters = route.snapshot.data.semesters;
     //this.subjects = route.snapshot.data.subjects;
 
+    this.weekDays = [
+      'segunda-feira',
+      'terça-feira',
+      'quarta-feira',
+      'quinta-feira',
+      'sexta-feira'
+    ]
 
     if (this.acaoSistema.isAcaoVisualizar()) {
       this.displayedColumns = ["nomeTeacherVinculado"];
+      this.displayedColumns2 = ["initHourVinculado", "finalHourVinculado", "weekDayHourVinculado"]
     } else {
       this.displayedColumns = ["nomeTeacherVinculado", "remover"];
+      this.displayedColumns2 = ["initHourVinculado", "finalHourVinculado", "weekDayHourVinculado", "remover"];
     }
 
     if (this.acaoSistema.isAcaoIncluir()) {
       this.teacherInclusao = {};
       this.teachersVinculados = [];
+      this.hourInclusao = {};
+      this.hoursVinculados = [];
       this.dataSourceTeachers.data = this.teachersVinculados;
 
       this.carregarTeachers();
       this.carregarSemesters();
       this.carregarSubjects();
 
+      this.weekDays = [
+        'segunda-feira',
+        'terça-feira',
+        'quarta-feira',
+        'quinta-feira',
+        'sexta-feira'
+      ]
+
       // Inicializa o Usuário para Inclusão
       this.classroom = {
         teachersClassrooms: [],
+        hours: []
       };
 
 
@@ -117,6 +147,7 @@ export class ClassroomFormComponent {
 
     if (this.acaoSistema.isAcaoAlterar()) {
       this.teacherInclusao = {};
+      this.hourInclusao = {};
       this.carregarTeachers();
       this.carregarSemesters();
       this.carregarSubjects();
@@ -127,8 +158,12 @@ export class ClassroomFormComponent {
       this.acaoSistema.isAcaoVisualizar()
     ) {
       this.classroom = route.snapshot.data.classroom;
+      console.log(this.classroom);
       this.teachersVinculados = this.classroom.teachersClassrooms;
       this.dataSourceTeachers.data = this.teachersVinculados;
+
+      this.hoursVinculados = this.classroom.hours;
+      this.dataSourceHours.data = this.hoursVinculados;
     }
   }
 
@@ -198,11 +233,12 @@ export class ClassroomFormComponent {
 
     if (form.valid) {
       // Busca o Teacher a ser adicionado na lista
+
+
+
       const teacherVinculado = this.teachersVinculados.find(
-        (teacher) => teacher.idTeacher === teacherInclusao.teacher.id
+        (teacher) => teacher.idTeacher == teacherInclusao.teacher.id
       );
-
-
 
 
       // Verifica se o Teacher foi encontrado
@@ -211,9 +247,6 @@ export class ClassroomFormComponent {
           idClassroom: this.classroom.id,
           idTeacher: teacherInclusao.teacher.id,
           nomeTeacher: teacherInclusao.teacher.nome,
-          emailTeacher: teacherInclusao.teacher.email,
-          nomeSistemaTeacher: teacherInclusao.teacher.nomeSistema,
-
         });
 
         this.dataSourceTeachers.data = this.teachersVinculados;
@@ -223,6 +256,41 @@ export class ClassroomFormComponent {
         this.teacherInclusao = {};
 
       }
+    }
+  }
+
+  public adicionarHour(hourInclusao: any, form: NgForm, event: any): void {
+    form.onSubmit(event);
+    this.submittedHour = true;
+
+    if (form.valid && hourInclusao.initHour != undefined && hourInclusao != undefined) {
+      // Busca o Teacher a ser adicionado na lista
+
+      const hourVinculado = this.hoursVinculados.find(
+        (hour) => hour.initHour == hourInclusao.initHour && hour.finalHour == hourInclusao.finalHour && hour.weekDay == hourInclusao.weekDay
+      );
+
+      console.log(hourVinculado)
+
+      if (hourInclusao.initHour > hourInclusao.finalHour) {
+        this.messageService.addMsgSuccess("MSG070");
+      } else if (hourVinculado === undefined) {
+        this.hoursVinculados.push({
+          idClassroom: this.classroom.id,
+          initHour: hourInclusao.initHour,
+          finalHour: hourInclusao.finalHour,
+          weekDay: hourInclusao.weekDay,
+        });
+
+        this.dataSourceHours.data = this.hoursVinculados;
+
+        console.log('HOURS VINCULADOS')
+        console.log(this.hoursVinculados);
+
+        form.onReset();
+        this.hourInclusao = {};
+      }
+
     }
   }
 
@@ -259,6 +327,32 @@ export class ClassroomFormComponent {
 
   }
 
+  public removerHour(hour: any, classroom: any) {
+
+    this.messageService.addConfirmYesNo("MSG006", () => {
+
+      const index = this.hoursVinculados.indexOf(hour);
+      this.hoursVinculados.splice(index, 1);
+      this.dataSourceHours.data = this.hoursVinculados;
+      this.classroomClientService.alterarHour(classroom).subscribe(
+        () => {
+
+          this.messageService.addMsgSuccess("MSG007");
+        },
+        (error) => {
+          this.messageService.addMsgDanger(error);
+        }
+      );
+
+
+
+
+    });
+
+
+
+  }
+
   /**
    * Salva a instância de Usuário.
    *
@@ -271,9 +365,10 @@ export class ClassroomFormComponent {
     this.submittedClassroom = true;
 
 
-    if (form.valid) {
-      if (this.teachersVinculados.length > 0) {
+    if (form.valid && classroom.idSemester != undefined && classroom.idSubject != undefined) {
+      if (this.teachersVinculados.length > 0 && this.hoursVinculados.length > 0) {
 
+        classroom.hours = this.hoursVinculados
         classroom.teachersClassrooms = this.teachersVinculados;
         classroom.local = 'Sala 201'
         console.log("Classroom Envio", classroom);

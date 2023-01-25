@@ -1,14 +1,17 @@
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgModule } from '@angular/core';
-import {MatMenuModule, MatButtonModule, MatCardModule, MatIconModule,
+import {
+  MatMenuModule, MatButtonModule, MatCardModule, MatIconModule,
   MatProgressSpinnerModule, MatDialogModule, MatSnackBarModule, MatTooltipModule,
   MatPaginatorModule, MatSortModule, MatTableModule, MatAutocompleteModule, MatCheckboxModule,
-   MatInputModule, MatRadioModule, MatSelectModule, MatSlideToggleModule,
+  MatInputModule, MatRadioModule, MatSelectModule, MatSlideToggleModule,
   MatDividerModule, MatExpansionModule, MatGridListModule, MatTreeModule, MatToolbarModule, MatTabsModule,
   MatSliderModule, MatSidenavModule, MatRippleModule, MatProgressBarModule, MatNativeDateModule, MatListModule,
   MatDatepickerModule, MatStepperModule, MatChipsModule,
-  MatButtonToggleModule, MatBottomSheetModule, MatBadgeModule} from '@angular/material';
-import {MatFormFieldModule} from '@angular/material/form-field';
+  MatButtonToggleModule, MatBottomSheetModule, MatBadgeModule
+} from '@angular/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { PortalModule } from '@angular/cdk/portal';
 import { CdkTreeModule } from '@angular/cdk/tree';
@@ -20,6 +23,7 @@ import { A11yModule } from '@angular/cdk/a11y';
   exports: [
     A11yModule,
     CdkStepperModule,
+    ReactiveFormsModule,
     CdkTableModule,
     CdkTreeModule,
     MatAutocompleteModule,

@@ -15,10 +15,25 @@
         <mat-card-title>
           <span>{{'LABEL_DADOS_HOLIDAY' | i18n}}</span>
         </mat-card-title>
+
         <mat-card-content fxLayout="column" fxLayoutGap="0.7%" fxLayoutGap.xs="3%">
 
-
           <div fxLayout="row" fxLayoutAlign.gt-xs="center end" fxLayout.lt-sm="column" fxLayoutGap="0.7%">
+
+            <mat-form-field fxFlex *ngIf="!acaoSistema.isAcaoVisualizar()">
+              <mat-select *ngIf="!acaoSistema.isAcaoVisualizar()" placeholder="Semestre"
+                title="{{ 'LABEL_CLIENTE' | i18n }}" [(ngModel)]="holiday.idSemester"
+                [disabled]="acaoSistema.isAcaoVisualizar()" name="semester">
+                <mat-option [value]="undefined">Selecione</mat-option>
+                <mat-option *ngFor="let semester of semesters" [value]="semester.id">
+                  {{ semester.nome }}
+                  <mat-error validationMessage [submitted]="submitted"></mat-error>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+
             <mat-form-field fxFlex>
               <mat-label>{{'LABEL_NOME' | i18n}}</mat-label>
               <input matInput placeholder="{{'LABEL_INFORME_NOME' | i18n}}" title="{{'LABEL_NOME' | i18n}}"
@@ -26,6 +41,8 @@
                 [disabled]="acaoSistema.isAcaoVisualizar()">
               <mat-error validationMessage [submitted]="submitted"></mat-error>
             </mat-form-field>
+
+
 
             <mat-form-field fxFlex>
               <mat-label>Data inicial</mat-label>

@@ -61,6 +61,40 @@
               </mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="dataInicio">
+              <mat-header-cell class="style-header" fxHide.xs="true" fxLayoutAlign="center center" *matHeaderCellDef>
+                Data inicial
+              </mat-header-cell>
+              <mat-cell fxFlex.lt-sm="100" ngClass.gt-sm="style-column" fxLayoutAlign="start center"
+                *matCellDef="let element">
+                <div fxFlex fxLayout="row">
+                  <div fxFlex="130px" fxHide.gt-xs="true" fxLayoutAlign="end center" fxLayoutGap.lt-sm="1">
+                    <span class="mat-body-strong">Data Inicial:</span>
+                  </div>
+                  <div>
+                    {{ element.initDate }}
+                  </div>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="dataFinal">
+              <mat-header-cell class="style-header" fxHide.xs="true" fxLayoutAlign="center center" *matHeaderCellDef>
+                Data inicial
+              </mat-header-cell>
+              <mat-cell fxFlex.lt-sm="100" ngClass.gt-sm="style-column" fxLayoutAlign="start center"
+                *matCellDef="let element">
+                <div fxFlex fxLayout="row">
+                  <div fxFlex="130px" fxHide.gt-xs="true" fxLayoutAlign="end center" fxLayoutGap.lt-sm="1">
+                    <span class="mat-body-strong">Data Final :</span>
+                  </div>
+                  <div>
+                    {{ element.finalDate }}
+                  </div>
+                </div>
+              </mat-cell>
+            </ng-container>
+
             <ng-container matColumnDef="acoes">
               <mat-header-cell fxFlex.gt-sm="100px" class="style-header f" fxLayoutAlign="center center"
                 *matHeaderCellDef>

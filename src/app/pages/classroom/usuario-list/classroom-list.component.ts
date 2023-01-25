@@ -28,7 +28,7 @@ export class ClassroomListComponent extends AbstractComponent implements OnInit 
   public tiposCadastro: any[];
 
   public displayedColumns = [
-    "local",
+    "semester",
     "subject",
     "acoes",
   ];
@@ -89,6 +89,21 @@ export class ClassroomListComponent extends AbstractComponent implements OnInit 
   public limpar(): void {
     this.filtroDTO = FiltroClassroomDTO.getInstace();
     this.dataSource.data = [];
+  }
+
+  private remover(classroom: any): void {
+    this.messageService.addConfirmYesNo('MSG045', () => {
+      this.classroomClientService.remover(classroom).subscribe(() => {
+        this.filtroDTO.subject = this.filtroDTO.subject ? this.filtroDTO.subject : '%';
+        this.pesquisar(this.filtroDTO);
+        this.messageService.addMsgSuccess('MSG007');
+      }, error => {
+        classroom.status = false;
+        this.messageService.addMsgDanger(error);
+      });
+    }, () => {
+      classroom.status = false;
+    });
   }
 
 

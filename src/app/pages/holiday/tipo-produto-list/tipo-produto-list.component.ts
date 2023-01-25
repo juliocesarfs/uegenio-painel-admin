@@ -10,6 +10,7 @@ import { AbstractComponent } from '../../../shared/component/Abstract.component'
 
 import { FiltroHolidayDTO } from '../../../shared/dto/filtro-holiday.dto';
 import { HolidayClientService } from '../shared/tipo-amigo-client/tipo-produto-client.service';
+import { format } from 'date-fns';
 
 /**
  * Componente de listagem de Usuário.
@@ -27,7 +28,7 @@ export class HolidayListComponent extends AbstractComponent implements OnInit {
 
   public dataSource: MatTableDataSource<any>;
 
-  public displayedColumns = ['nome', 'acoes'];
+  public displayedColumns = ['nome', 'dataInicio', 'dataFinal', 'acoes'];
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
@@ -47,6 +48,7 @@ export class HolidayListComponent extends AbstractComponent implements OnInit {
   ) {
     super();
     const tipoprodutos = route.snapshot.data.tipoprodutos;
+
     this.dataSource = new MatTableDataSource<any>(tipoprodutos);
   }
 
@@ -66,6 +68,11 @@ export class HolidayListComponent extends AbstractComponent implements OnInit {
   public pesquisar(filtroHolidayDTO: FiltroHolidayDTO): void {
     this.holidayClientService.getByFiltro(filtroHolidayDTO).subscribe(data => {
       this.dataSource.paginator = this.paginator;
+
+      data.forEach(element => {
+        element.initDate = format(new Date(element.initDate), 'dd/MM/yyyy');
+        element.finalDate = format(new Date(element.finalDate), 'dd/MM/yyyy');
+      });
       this.dataSource.data = data;
     }, data => {
       this.messageService.addMsgDanger(data);

@@ -20,8 +20,9 @@
           <div fxLayout="row" fxLayoutAlign.gt-xs="center end" fxLayout.lt-sm="column" fxLayoutGap="0.7%">
             <mat-form-field fxFlex>
               <mat-label>{{'LABEL_NOME' | i18n}}</mat-label>
-              <input mask="0000/0" matInput placeholder="{{'LABEL_INFORME_NOME' | i18n}}"
-                title="{{'LABEL_NOME' | i18n}}" [(ngModel)]="semester.nome" name="nome" required maxlength="100"
+              <input mask="0000/0" [dropSpecialCharacters]="false" matInput
+                placeholder="{{'LABEL_INFORME_NOME' | i18n}}" title="{{'LABEL_NOME' | i18n}}"
+                [(ngModel)]="semester.nome" name="nome" required maxlength="100"
                 [disabled]="acaoSistema.isAcaoVisualizar()">
               <mat-error validationMessage [submitted]="submitted"></mat-error>
             </mat-form-field>
@@ -39,8 +40,11 @@
               <input matInput [matDatepicker]="picker" [(ngModel)]="semester.initDate" name="initDate" readonly
                 (focus)="picker.open()" (click)="picker.open()" placeholder="{{'LABEL_DATAVENDA' | i18n}}"
                 [disabled]="acaoSistema.isAcaoVisualizar()">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
+              <mat-datepicker-toggle matSuffix [for]="picker">
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker>
+              </mat-datepicker>
+              <mat-error validationMessage [submitted]="submitted"></mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex>
@@ -48,6 +52,7 @@
               <input matInput [matDatepicker]="picker2" [(ngModel)]="semester.finalDate" name="finalDate" readonly
                 (focus)="picker2.open()" (click)="picker2.open()" placeholder="{{'LABEL_DATAVENDA' | i18n}}"
                 [disabled]="acaoSistema.isAcaoVisualizar()">
+              <mat-error validationMessage [submitted]="submitted"></mat-error>
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker>
             </mat-form-field>

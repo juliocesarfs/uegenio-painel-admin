@@ -7,6 +7,7 @@ import { MessageService } from '../../../shared/message/message.service';
 import { AcaoSistema } from '../../../shared/component/acao-sistema.acao';
 import { SecurityService } from '../../../shared/security/security.service';
 import { HolidayClientService } from '../shared/tipo-amigo-client/tipo-produto-client.service';
+import { SemesterClientService } from '../../semester/shared/semester-client/semester-client.service';
 
 /**
  * Componente de formulário de Usuário.
@@ -24,6 +25,7 @@ export class HolidayFormComponent {
 
   public holiday: any;
   public submitted: boolean;
+  public semesters: any[];
 
   private dialogRef: MatDialogRef<any>;
 
@@ -45,12 +47,15 @@ export class HolidayFormComponent {
     private dialog: MatDialog,
     private messageService: MessageService,
     public securityService: SecurityService,
-    private holidayClientService: HolidayClientService
+    private holidayClientService: HolidayClientService,
+    private semesterClientService: SemesterClientService,
   ) {
     this.acaoSistema = new AcaoSistema(route);
 
     if (this.acaoSistema.isAcaoIncluir()) {
       this.holiday = {};
+
+
     }
 
     if (this.acaoSistema.isAcaoAlterar() || this.acaoSistema.isAcaoVisualizar()) {
@@ -62,6 +67,8 @@ export class HolidayFormComponent {
 
 
     }
+
+    this.carregarSemesters();
   }
 
   /**
@@ -76,21 +83,25 @@ export class HolidayFormComponent {
     this.submitted = true;
 
 
-    console.log('TSETETSTET-=======================================')
-
-
-
     holiday.initDate = this.getUTCDate(holiday.initDate);
     holiday.finalDate = this.getUTCDate(holiday.finalDate);
+    console.log(holiday)
 
 
     if (form.valid) {
-      this.holidayClientService.salvar(holiday).subscribe(() => {
-        this.router.navigate(['/administracao/holiday']);
-        this.messageService.addMsgSuccess('MSG007');
-      }, error => {
-        this.messageService.addMsgDanger(error);
-      });
+
+      if (holiday.initDate.getTime() > holiday.finalDate.getTime()) {
+        this.messageService.addMsgSuccess('MSG071');
+      } else {
+        this.holidayClientService.salvar(holiday).subscribe(() => {
+          this.router.navigate(['/administracao/holiday']);
+          this.messageService.addMsgSuccess('MSG007');
+        }, error => {
+          this.messageService.addMsgDanger(error);
+        });
+      }
+
+
     } else {
       this.messageService.addMsgSuccess('MSG001');
     }
@@ -145,5 +156,19 @@ export class HolidayFormComponent {
    */
   public closeDialogs(): void {
     this.dialogRef.close();
+  }
+
+  public carregarSemesters(): void {
+    this.semesterClientService.getSemestersAtivos().subscribe(
+      (data) => {
+        this.semesters = data;
+      },
+      (error) => {
+        this.semesters = undefined;
+        if (error.code !== "ME003") {
+          this.messageService.addMsgDanger(error);
+        }
+      }
+    );
   }
 }

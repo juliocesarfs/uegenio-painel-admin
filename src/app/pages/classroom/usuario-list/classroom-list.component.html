@@ -18,7 +18,7 @@
         <mat-form-field fxFlex fxFlex.gt-xs="70" fxFlex.lt-sm="100">
           <mat-label>{{ "LABEL_NOME" | i18n }}</mat-label>
           <input matInput placeholder="{{ 'LABEL_CLASSROOM_HINT' | i18n }}" title="{{ 'LABEL_LOCAL' | i18n }}"
-            [(ngModel)]="filtroDTO.local" maxlength="100" />
+            [(ngModel)]="filtroDTO.subject" maxlength="100" />
         </mat-form-field>
 
 
@@ -47,18 +47,18 @@
         <div class="table-detail">
           <mat-table #table [dataSource]="dataSource">
 
-            <ng-container matColumnDef="local">
+            <ng-container matColumnDef="semester">
               <mat-header-cell class="style-header" fxHide.xs="true" fxLayoutAlign="center center" *matHeaderCellDef>
-                {{ "LABEL_LOCAL" | i18n }}
+                Semestre
               </mat-header-cell>
               <mat-cell fxFlex.lt-sm="100" ngClass.gt-sm="style-column" fxLayoutAlign="start center"
                 *matCellDef="let element">
                 <div fxFlex fxLayout="row">
                   <div fxFlex="130px" fxHide.gt-xs="true" fxLayoutAlign="end center" fxLayoutGap.lt-sm="1">
-                    <span class="mat-body-strong">{{ "LABEL_NOME" | i18n }} :</span>
+                    <span class="mat-body-strong">Semestre :</span>
                   </div>
                   <div>
-                    {{ element.local }}
+                    {{ element.nomeSemester }}
                   </div>
                 </div>
               </mat-cell>
@@ -109,6 +109,13 @@
                       ]">
                       <mat-icon>edit</mat-icon>
                     </a>
+
+                    <a mat-mini-fab title="{{ 'LABEL_ALTERAR_CLASSROOM' | i18n }}" class="btn-primary" (click)="
+                    remover(element)">
+                      <mat-icon>close</mat-icon>
+                    </a>
+
+
                   </div>
                 </div>
               </mat-cell>

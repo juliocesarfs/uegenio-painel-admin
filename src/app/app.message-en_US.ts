@@ -205,7 +205,7 @@ export class AppMessage implements InternacionalizacaoResource {
       MSG035: 'J\u00E1 existe um grupo com o nome informado.',
       MSG036: 'Nenhum usu\u00E1rio foi selecionado.',
       MSG038: 'O login informado n\u00E3o foi encontrado no sistema AD.',
-      MSG039: '\u00C9 obrigat\u00F3rio informar pelo menos um grupo.',
+      MSG039: '\u00C9 obrigat\u00F3rio informar horários e/ou professor(es).',
       MSG041: 'A data final deve ser maior ou igual a data inicial.',
       MSG042: 'Usu\u00E1rio Bloqueado',
       MSG044: 'Usu\u00E1rio n\u00E3o tem permiss\u00E3o de acesso a funcionalidade acessada.',

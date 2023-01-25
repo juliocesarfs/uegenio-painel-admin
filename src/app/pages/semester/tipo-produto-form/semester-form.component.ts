@@ -1,12 +1,13 @@
 /* tslint:disable:no-redundant-jsdoc */
-import { NgForm } from '@angular/forms';
-import { Component, ViewChild } from '@angular/core';
+import { NgForm, NgModel } from '@angular/forms';
+import { Component, NgModule, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MessageService } from '../../../shared/message/message.service';
 import { AcaoSistema } from '../../../shared/component/acao-sistema.acao';
 import { SecurityService } from '../../../shared/security/security.service';
 import { SemesterClientService } from '../shared/semester-client/semester-client.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 /**
  * Componente de formulário de Usuário.
@@ -29,6 +30,9 @@ export class SemesterFormComponent {
 
   @ViewChild('formSemester', { static: true }) formSemester: NgForm;
 
+
+
+
   /**
    * Construtor da classe.
    *
@@ -45,7 +49,8 @@ export class SemesterFormComponent {
     private dialog: MatDialog,
     private messageService: MessageService,
     public securityService: SecurityService,
-    private semesterClientService: SemesterClientService
+    private semesterClientService: SemesterClientService,
+    private reactiveFormsModule: ReactiveFormsModule
   ) {
     this.acaoSistema = new AcaoSistema(route);
 
@@ -75,12 +80,19 @@ export class SemesterFormComponent {
     this.submitted = true;
 
     if (form.valid) {
-      this.semesterClientService.salvar(semester).subscribe(() => {
-        this.router.navigate(['/administracao/semester']);
-        this.messageService.addMsgSuccess('MSG007');
-      }, error => {
-        this.messageService.addMsgDanger(error);
-      });
+
+      if (semester.initDate.getTime() > semester.finalDate.getTime()) {
+        this.messageService.addMsgSuccess('MSG071');
+      } else {
+        this.semesterClientService.salvar(semester).subscribe(() => {
+          this.router.navigate(['/administracao/semester']);
+          this.messageService.addMsgSuccess('MSG007');
+        }, error => {
+          this.messageService.addMsgDanger(error);
+        });
+      }
+
+
     } else {
       this.messageService.addMsgSuccess('MSG001');
     }

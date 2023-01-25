@@ -77,6 +77,13 @@ export class ClassroomClientService {
     return result;
   }
 
+  public alterarHour(classroom: any): Observable<any> {
+    let result: Observable<any> = null;
+    result = this.http.put(`${environment.urlApi}/classroom/alterar/${classroom.id}`, classroom);
+
+    return result;
+  }
+
 
 
   /**

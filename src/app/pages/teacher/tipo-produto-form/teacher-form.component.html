@@ -2,9 +2,9 @@
 
   <div fxLayout="row">
     <div class="content__title" fxFlex fxFlexAlign="center">
-      <span *ngIf="acaoSistema.isAcaoAlterar()">{{'LABEL_ALTERAR_TEACHER' | i18n}}</span>
-      <span *ngIf="acaoSistema.isAcaoIncluir()">{{'LABEL_INCLUIR_TEACHER' | i18n}}</span>
-      <span *ngIf="acaoSistema.isAcaoVisualizar()">{{'LABEL_VISUALIZAR_TEACHER' | i18n}}</span>
+      <span *ngIf="acaoSistema.isAcaoAlterar()">Alterar Professor</span>
+      <span *ngIf="acaoSistema.isAcaoIncluir()">Incluir Professor</span>
+      <span *ngIf="acaoSistema.isAcaoVisualizar()">Visualizar Professor</span>
     </div>
   </div>
 
@@ -13,7 +13,7 @@
     <form #formTipoProduto="ngForm">
       <mat-card fxLayout="column" fxLayoutGap="1%" fxLayoutGap.xs="2%">
         <mat-card-title>
-          <span>{{'LABEL_DADOS_TEACHER' | i18n}}</span>
+          <span>Dados do professor</span>
         </mat-card-title>
         <mat-card-content fxLayout="column" fxLayoutGap="0.7%" fxLayoutGap.xs="3%">
 

@@ -3,6 +3,6 @@ export const environment = {
   // windows: c:\windows\system32\drivers\etc\hos
   // linux: /etc/hosts
   // entrada: xxx.xxx.xxx.xxx dev.local
-    production: true,
-    urlApi: 'localhost:8081/modelo-api/api/v1'
+  production: true,
+  urlApi: 'https://uegenio-api2.herokuapp.com/modelo-api/api/v1'
 };

@@ -18,7 +18,7 @@ export class FiltroClassroomDTO {
    */
   constructor(
     public local?: string,
-
+    public subject?: string,
   ) { }
 
   /**
@@ -45,6 +45,10 @@ export class FiltroClassroomDTO {
 
     if (this.local) {
       params = params.append("local", this.local);
+    }
+
+    if (this.subject) {
+      params = params.append("subject", this.subject);
     }
 
 

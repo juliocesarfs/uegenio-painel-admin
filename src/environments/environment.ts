@@ -4,5 +4,5 @@
 
 export const environment = {
   production: false,
-  urlApi: 'http://localhost:8081/modelo-api/api/v1'
+  urlApi: 'https://uegenio-api2.herokuapp.com/modelo-api/api/v1'
 };

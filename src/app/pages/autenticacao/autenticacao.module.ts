@@ -6,15 +6,16 @@ import { MaskModule } from '../../shared/mask/mask.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {AutenticacaoRoutes} from './autenticacao.routing';
-import {ValidationModule} from '../../shared/validation/validation.module';
-import {MessageModule} from '../../shared/message/message.module';
-import {AutenticacaoGuard} from './autenticacao-guard.service';
-import {AutenticacaoService} from './autenticacao.service';
-import {LayoutsModule} from '../../layouts/layouts.module';
+import { AutenticacaoRoutes } from './autenticacao.routing';
+import { ValidationModule } from '../../shared/validation/validation.module';
+import { MessageModule } from '../../shared/message/message.module';
+import { AutenticacaoGuard } from './autenticacao-guard.service';
+import { AutenticacaoService } from './autenticacao.service';
+import { LayoutsModule } from '../../layouts/layouts.module';
 import { FormAlterarSenhaComponent } from '../autenticacao/form-alterar-senha/form-alterar-senha.component';
 import { FormRecuperarSenhaComponent } from '../autenticacao/form-recuperar-senha/form-recuperar-senha.component';
 import { RedefinirSenhaGuard } from './redefinir-senha.guard';
+import { AutenticacaoRedefinirComponent } from './autenticacao-redefinir.component';
 
 
 
@@ -22,7 +23,8 @@ import { RedefinirSenhaGuard } from './redefinir-senha.guard';
   declarations: [
     AutenticacaoComponent,
     FormAlterarSenhaComponent,
-    FormRecuperarSenhaComponent
+    FormRecuperarSenhaComponent,
+    AutenticacaoRedefinirComponent
   ],
   imports: [
     MaskModule,

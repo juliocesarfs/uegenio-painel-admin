@@ -91,7 +91,7 @@ export class ClassroomListComponent extends AbstractComponent implements OnInit 
     this.dataSource.data = [];
   }
 
-  private remover(classroom: any): void {
+  public remover(classroom: any): void {
     this.messageService.addConfirmYesNo('MSG045', () => {
       this.classroomClientService.remover(classroom).subscribe(() => {
         this.filtroDTO.subject = this.filtroDTO.subject ? this.filtroDTO.subject : '%';

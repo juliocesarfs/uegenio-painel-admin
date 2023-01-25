@@ -64,6 +64,8 @@ export class HolidayFormComponent {
       this.holiday.initDate = new Date(this.holiday.initDate)
       this.holiday.finalDate = new Date(this.holiday.finalDate)
 
+      //this.holiday.initDate.setDate(this.holiday.initDate.getDate() + 1)
+      //this.holiday.finalDate.setDate(this.holiday.finalDate.getDate() + 1)
 
 
     }
@@ -119,7 +121,7 @@ export class HolidayFormComponent {
    *
    * @param holiday
    */
-  private remover(holiday: any): void {
+  public remover(holiday: any): void {
     this.messageService.addConfirmYesNo('MSG045', () => {
       this.holidayClientService.remover(holiday).subscribe(() => {
         this.router.navigate(['/administracao/holiday']);

@@ -94,8 +94,7 @@
 
               <mat-form-field fxFlex fxFlex.lt-sm="100">
                 <mat-select id="inputTeacher" placeholder="Professor" title="{{'LABEL_PRODUTO' | i18n}}" name="teacher"
-                  [(ngModel)]="teacherInclusao.teacher" [disabled]="teachersDisabled || acaoSistema.isAcaoVisualizar()"
-                  required>
+                  [(ngModel)]="teacherInclusao.teacher" [disabled]="acaoSistema.isAcaoVisualizar()" required>
                   <mat-option [value]="undefined">{{'LABEL_SELECIONE' | i18n}}</mat-option>
                   <mat-option *ngFor="let teacher of teachers" [value]="teacher">
                     {{teacher.nome}}
@@ -196,8 +195,7 @@
 
               <mat-form-field fxFlex fxFlex.lt-sm="100">
                 <mat-select id="inputWeekday" placeholder="Dia da semana" title="Dia da semana" name="weekDay"
-                  [(ngModel)]="hourInclusao.weekDay" [disabled]="hoursDisabled || acaoSistema.isAcaoVisualizar()"
-                  required>
+                  [(ngModel)]="hourInclusao.weekDay" [disabled]="acaoSistema.isAcaoVisualizar()" required>
                   <mat-option [value]="undefined">{{'LABEL_SELECIONE' | i18n}}</mat-option>
                   <mat-option *ngFor="let weekDay of weekDays" [value]="weekDay">
                     {{weekDay}}

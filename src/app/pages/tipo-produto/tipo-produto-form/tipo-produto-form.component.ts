@@ -86,7 +86,7 @@ export class SubjectFormComponent {
    *
    * @param subject
    */
-  private remover(subject: any): void {
+  public remover(subject: any): void {
     this.messageService.addConfirmYesNo('MSG045', () => {
       this.subjectClientService.remover(subject).subscribe(() => {
         this.router.navigate(['/administracao/subject']);

@@ -86,7 +86,7 @@ export class TeacherFormComponent {
    *
    * @param teacher
    */
-  private remover(teacher: any): void {
+  public remover(teacher: any): void {
     this.messageService.addConfirmYesNo('MSG045', () => {
       this.teacherClientService.remover(teacher).subscribe(() => {
         this.router.navigate(['/administracao/teacher']);

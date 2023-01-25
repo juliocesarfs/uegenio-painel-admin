@@ -86,7 +86,7 @@ export class SemesterListComponent extends AbstractComponent implements OnInit {
    *
    * @param usuario
    */
-  private remover(usuario: any): void {
+  public remover(usuario: any): void {
     this.messageService.addConfirmYesNo('MSG045', () => {
       this.semesterClientService.remover(usuario).subscribe(() => {
         this.filtroDTO.nome = this.filtroDTO.nome ? this.filtroDTO.nome : '%';

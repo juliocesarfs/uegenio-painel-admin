@@ -103,7 +103,7 @@ export class SemesterFormComponent {
    *
    * @param semester
    */
-  private remover(semester: any): void {
+  public remover(semester: any): void {
     this.messageService.addConfirmYesNo('MSG045', () => {
       this.semesterClientService.remover(semester).subscribe(() => {
         this.router.navigate(['/administracao/semester']);

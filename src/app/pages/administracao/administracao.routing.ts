@@ -23,23 +23,7 @@ export const AdministracaoRoutes: Routes = [
         loadChildren: () =>
           import("../grupo/grupo.module").then((m) => m.GrupoModule),
       },
-      {
-        path: "usuario",
-        loadChildren: () =>
-          import("./../usuario/usuario.module").then((m) => m.UsuarioModule),
-      },
-      {
-        path: "tipo-amigo",
-        loadChildren: () =>
-          import("../tipo-amigo/tipo-amigo.module").then(
-            (m) => m.TipoAmigoModule
-          ),
-      },
-      {
-        path: "amigo",
-        loadChildren: () =>
-          import("../amigo/amigo.module").then((m) => m.AmigoModule),
-      },
+
       {
         path: "subject",
         loadChildren: () =>
@@ -76,17 +60,6 @@ export const AdministracaoRoutes: Routes = [
           ),
       },
 
-      {
-        path: "mensagem",
-        loadChildren: () =>
-          import("../mensagem/mensagem.module").then((m) => m.MensagemModule),
-      },
-
-      {
-        path: "cliente",
-        loadChildren: () =>
-          import("../cliente/cliente.module").then((m) => m.ClienteModule),
-      },
     ],
   },
 ];

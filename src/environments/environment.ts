@@ -2,7 +2,9 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The lista of file replacements can be found in `angular.json`.
 
+require('dotenv').config();
+
 export const environment = {
   production: false,
-  urlApi: 'https://uegenio-api2.herokuapp.com/modelo-api/api/v1'
+  urlApi: process.env.urlApi
 };
